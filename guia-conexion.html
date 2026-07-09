@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcanis | Cómo Conectarte</title>
+    <link rel="icon" type="image/png" href="Logo_ARCANIS.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --black: #080810; --card: #16162a; --border: rgba(124,58,237,0.18);
+            --border-hover: rgba(124,58,237,0.5); --purple: #7c3aed; --purple-light: #9d5cff;
+            --magenta: #d946ef; --white: #f8f8ff; --muted: #888899;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); min-height: 100vh; overflow-x: hidden; }
+        #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+        /* HEADER */
+        header { position: sticky; top: 0; z-index: 100; background: rgba(8,8,16,0.8); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 0 48px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+        .nav-left { display: flex; align-items: center; gap: 12px; }
+        .nav-logo-img { width: 32px; height: 32px; image-rendering: pixelated; }
+        .nav-logo { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--white); text-decoration: none; letter-spacing: 3px; }
+        .nav-back { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 7px 18px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; }
+        .nav-back:hover { color: var(--white); border-color: var(--border-hover); }
+
+        /* HERO */
+        .guide-hero { position: relative; z-index: 1; padding: 80px 32px 60px; text-align: center; background: linear-gradient(135deg, rgba(124,58,237,0.12) 0%, rgba(8,8,16,0.9) 50%, rgba(217,70,239,0.08) 100%); border-bottom: 1px solid var(--border); }
+        .guide-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 80%, rgba(124,58,237,0.15) 0%, transparent 65%); }
+        .guide-hero-content { position: relative; z-index: 2; }
+        .guide-eyebrow { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: var(--purple-light); margin-bottom: 12px; }
+        .guide-hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: var(--white); letter-spacing: 2px; margin-bottom: 14px; text-shadow: 0 0 40px rgba(217,70,239,0.3); }
+        .guide-hero p { color: var(--muted); font-size: 1rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+        /* CONTENIDO */
+        .guide-body { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 64px 32px 100px; }
+
+        /* STEPS */
+        .steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+        .steps::before { content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--purple), var(--magenta)); opacity: 0.2; border-radius: 2px; }
+        .step { display: flex; gap: 24px; padding: 32px 0; border-bottom: 1px solid rgba(124,58,237,0.08); position: relative; }
+        .step:last-child { border-bottom: none; }
+        .step-num { width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%; background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.35); display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 700; color: var(--purple-light); position: relative; z-index: 1; }
+        .step-body { flex: 1; padding-top: 10px; }
+        .step-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--white); letter-spacing: 0.5px; margin-bottom: 10px; }
+        .step-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
+        .step-body p:last-child { margin-bottom: 0; }
+
+        /* INFO BOX */
+        .info-box { background: rgba(124,58,237,0.07); border: 1px solid rgba(124,58,237,0.25); border-radius: 8px; padding: 16px 20px; margin-top: 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .info-label { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+        .code { background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); color: #f0abfc; padding: 4px 12px; border-radius: 5px; font-family: monospace; font-size: 0.88rem; letter-spacing: 0.5px; }
+
+        /* WARNING */
+        .warning-box { display: flex; gap: 12px; background: rgba(217,70,239,0.05); border: 1px solid rgba(217,70,239,0.2); border-radius: 8px; padding: 14px 18px; margin-top: 14px; font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+        .success-box { background: rgba(34,197,94,0.05); border-color: rgba(34,197,94,0.25); }
+
+        /* PLATFORM TABS */
+        .platform-tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+        .ptab { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 8px 22px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
+        .ptab:hover { border-color: var(--border-hover); color: var(--white); }
+        .ptab.active { background: var(--purple); border-color: var(--purple); color: var(--white); }
+
+        /* BEDROCK NOTICE */
+        .bedrock-notice { display: none; gap: 14px; background: rgba(217,70,239,0.07); border: 1px solid rgba(217,70,239,0.3); border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; align-items: flex-start; font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+        .bedrock-notice strong { color: var(--white); }
+
+        /* SECTION TITLE */
+        .section-title { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); letter-spacing: 1px; margin: 52px 0 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+        /* BACK BTN */
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 10px 20px; transition: all 0.2s; margin-bottom: 48px; }
+        .back-btn:hover { color: var(--white); border-color: var(--border-hover); }
+
+        @media (max-width: 680px) { header { padding: 0 18px; } .guide-body { padding: 40px 18px 80px; } .step-num { width: 46px; height: 46px; } }
+    </style>
+</head>
+<body>
+<canvas id="particles-canvas"></canvas>
+
+<header>
+    <div class="nav-left">
+        <img src="Logo_ARCANIS.png" alt="Logo" class="nav-logo-img" onerror="this.style.display='none'">
+        <a href="index.html" class="nav-logo">Arcanis</a>
+    </div>
+    <a href="index.html#guias" class="nav-back">← Volver a Guías</a>
+</header>
+
+<div class="guide-hero">
+    <div class="guide-hero-content">
+        <p class="guide-eyebrow">Guía del Servidor</p>
+        <h1>🗺️ Cómo Conectarte</h1>
+        <p>Todo lo que necesitas para unirte a Arcanis por primera vez, tanto en Java como en Bedrock Edition.</p>
+    </div>
+</div>
+
+<div class="guide-body">
+    <a href="index.html#guias" class="back-btn">← Volver a Guías</a>
+
+    <!-- SELECTOR PLATAFORMA -->
+    <div class="platform-tabs">
+        <button class="ptab active" onclick="setPlatform('java', this)">☕ Java Edition</button>
+        <button class="ptab" onclick="setPlatform('bedrock', this)">🪨 Bedrock Edition</button>
+    </div>
+
+    <div class="bedrock-notice" id="bedrock-notice">
+        <span style="font-size:1.4rem;flex-shrink:0;">⚠️</span>
+        <div><strong>Jugadores de Bedrock:</strong> debes agregar un <strong>punto ( . )</strong> al inicio de tu nombre de usuario en todo momento. Si tu nombre es <code style="background:rgba(124,58,237,0.15);padding:2px 7px;border-radius:4px;font-family:monospace;color:#f0abfc;">MiNombre</code>, usa <code style="background:rgba(124,58,237,0.15);padding:2px 7px;border-radius:4px;font-family:monospace;color:#f0abfc;">.MiNombre</code>.</div>
+    </div>
+
+    <div class="steps">
+        <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+                <div class="step-title">Abre Minecraft</div>
+                <p>Asegúrate de tener Minecraft instalado en tu dispositivo. Arcanis es compatible con versiones <strong>1.8 hasta 26.1.2</strong>, tanto Java Edition como Bedrock Edition.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+                <div class="step-title">Ve a Multijugador</div>
+                <p>En el menú principal de Minecraft, selecciona <strong>Multijugador</strong> (Java) o <strong>Juego en Red</strong> (Bedrock) y luego haz clic en <strong>Agregar Servidor</strong>.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+                <div class="step-title">Ingresa los datos del servidor</div>
+                <p>Escribe el nombre que quieras darle y los datos de conexión:</p>
+                <div class="info-box">
+                    <span class="info-label">IP</span>
+                    <span class="code">arcanis.servemc.net</span>
+                    <span class="info-label" style="margin-left:12px;">Puerto</span>
+                    <span class="code">24598</span>
+                </div>
+                <div id="bedrock-tip" class="warning-box" style="display:none; margin-top:14px;">
+                    <span>🪨</span>
+                    <span><strong style="color:var(--white);">Bedrock:</strong> En la sección de nombre de usuario, recuerda que debes conectarte con el punto al inicio: <code style="background:rgba(124,58,237,0.15);padding:2px 6px;border-radius:4px;font-family:monospace;color:#f0abfc;">.TuNombre</code></span>
+                </div>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-body">
+                <div class="step-title">Conéctate y disfruta</div>
+                <p>Haz clic en <strong>Hecho</strong> y luego en <strong>Unirse al Servidor</strong>. ¡Bienvenido a Arcanis! Al ingresar por primera vez se creará tu perfil automáticamente.</p>
+                <div class="warning-box success-box">
+                    <span>✅</span>
+                    <span>Si es tu primera vez, el servidor te dará la bienvenida y te explicará los primeros pasos. ¡Explora el spawn para descubrir todo lo que Arcanis tiene para ti!</span>
+                </div>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">05</div>
+            <div class="step-body">
+                <div class="step-title">¿Tienes problemas para conectarte?</div>
+                <p>Si no puedes conectarte, verifica que tu versión de Minecraft sea compatible (1.8 – 26.1.2) y que el servidor esté en línea. Si el problema persiste, abre un ticket en nuestro Discord.</p>
+                <div class="info-box" style="margin-top:14px;">
+                    <span class="info-label">Soporte</span>
+                    <a href="https://discord.gg/HhSUH7BY4" target="_blank" style="color:var(--purple-light);font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:1px;text-decoration:none;">discord.gg/UGUhK8ZU4 →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let pts = [];
+    function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+    function newP(){ return { x:Math.random()*canvas.width, y:canvas.height+20, r:Math.random()*1.5+0.4, speed:Math.random()*0.5+0.25, alpha:Math.random()*0.45+0.1, drift:(Math.random()-0.5)*0.28 }; }
+    function init(){ resize(); pts=Array.from({length:35},newP); }
+    function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pts.forEach(p=>{
+            const prog=1-(p.y/canvas.height);
+            const fade=prog<0.5?p.alpha:p.alpha*(1-(prog-0.5)/0.5);
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle=`rgba(217,70,239,${Math.max(0,fade)})`; ctx.fill();
+            p.y-=p.speed; p.x+=p.drift;
+            if(p.y<canvas.height*0.5||p.x<-5||p.x>canvas.width+5) Object.assign(p,newP());
+        });
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize',resize); init(); draw();
+})();
+
+function setPlatform(p, btn) {
+    document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const isBedrock = p === 'bedrock';
+    document.getElementById('bedrock-notice').style.display = isBedrock ? 'flex' : 'none';
+    document.getElementById('bedrock-tip').style.display = isBedrock ? 'flex' : 'none';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcanis | Misiones y Desafíos</title>
+    <link rel="icon" type="image/png" href="Logo_ARCANIS.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --black:#080810; --card:#16162a; --border:rgba(124,58,237,0.18); --border-hover:rgba(124,58,237,0.5); --purple:#7c3aed; --purple-light:#9d5cff; --magenta:#d946ef; --white:#f8f8ff; --muted:#888899; }
+        html { scroll-behavior: smooth; }
+        body { font-family:'Inter',sans-serif; background:var(--black); color:var(--white); min-height:100vh; overflow-x:hidden; }
+        #particles-canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+        header { position:sticky; top:0; z-index:100; background:rgba(8,8,16,0.8); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); padding:0 48px; height:62px; display:flex; align-items:center; justify-content:space-between; }
+        .nav-left { display:flex; align-items:center; gap:12px; }
+        .nav-logo-img { width:32px; height:32px; image-rendering:pixelated; }
+        .nav-logo { font-family:'Cinzel',serif; font-size:1rem; font-weight:700; color:var(--white); text-decoration:none; letter-spacing:3px; }
+        .nav-back { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); text-decoration:none; padding:7px 18px; border:1px solid var(--border); border-radius:6px; transition:all 0.2s; }
+        .nav-back:hover { color:var(--white); border-color:var(--border-hover); }
+        .guide-hero { position:relative; z-index:1; padding:80px 32px 60px; text-align:center; background:linear-gradient(135deg,rgba(124,58,237,0.12) 0%,rgba(8,8,16,0.9) 50%,rgba(217,70,239,0.08) 100%); border-bottom:1px solid var(--border); }
+        .guide-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 80%,rgba(124,58,237,0.15) 0%,transparent 65%); }
+        .guide-hero-content { position:relative; z-index:2; }
+        .guide-eyebrow { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:4px; text-transform:uppercase; color:var(--purple-light); margin-bottom:12px; }
+        .guide-hero h1 { font-family:'Cinzel',serif; font-size:clamp(2rem,5vw,3rem); font-weight:900; color:var(--white); letter-spacing:2px; margin-bottom:14px; text-shadow:0 0 40px rgba(217,70,239,0.3); }
+        .guide-hero p { color:var(--muted); font-size:1rem; max-width:520px; margin:0 auto; line-height:1.7; }
+        .guide-body { position:relative; z-index:1; max-width:920px; margin:0 auto; padding:64px 32px 100px; }
+        .back-btn { display:inline-flex; align-items:center; gap:8px; font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:10px 20px; transition:all 0.2s; margin-bottom:48px; }
+        .back-btn:hover { color:var(--white); border-color:var(--border-hover); }
+
+        .mission-types { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin-bottom:52px; }
+        .mission-type { border-radius:14px; overflow:hidden; border:1px solid; }
+        .mission-type-header { padding:24px 24px 0; }
+        .mt-icon { font-size:2rem; margin-bottom:14px; }
+        .mt-title { font-family:'Cinzel',serif; font-size:1rem; font-weight:700; letter-spacing:1px; margin-bottom:6px; }
+        .mt-freq { font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; padding:3px 10px; border-radius:20px; display:inline-block; }
+        .mt-desc { font-size:0.84rem; color:var(--muted); line-height:1.65; padding:0 24px; }
+        .mt-reward { display:flex; align-items:center; gap:10px; margin:16px 24px 24px; padding:12px 14px; border-radius:8px; }
+        .mt-reward-label { font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
+        .mt-reward-value { font-family:'Cinzel',serif; font-size:0.82rem; font-weight:700; }
+
+        .section-title { font-family:'Cinzel',serif; font-size:1.2rem; font-weight:700; color:var(--white); letter-spacing:1px; margin:52px 0 20px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+
+        .reward-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:40px; }
+        .reward-item { background:rgba(124,58,237,0.07); border:1px solid var(--border); border-radius:9px; padding:18px 16px; text-align:center; }
+        .reward-icon { font-size:1.6rem; margin-bottom:8px; }
+        .reward-name { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; color:var(--white); margin-bottom:6px; }
+        .reward-desc { font-size:0.78rem; color:var(--muted); line-height:1.5; }
+
+        .example-missions { display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+        .example-item { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px 18px; display:flex; align-items:center; gap:16px; transition:border-color 0.2s; }
+        .example-item:hover { border-color:var(--border-hover); }
+        .example-icon { font-size:1.2rem; flex-shrink:0; }
+        .example-text { font-size:0.84rem; color:var(--muted); line-height:1.5; flex:1; }
+        .example-text strong { color:var(--white); }
+        .example-reward { font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+
+        .tip-box { background:rgba(217,70,239,0.06); border:1px solid rgba(217,70,239,0.2); border-radius:10px; padding:20px 24px; display:flex; gap:14px; align-items:flex-start; }
+        .tip-box p { font-size:0.86rem; color:var(--muted); line-height:1.65; margin:0; }
+        .tip-box strong { color:var(--white); }
+
+        @media(max-width:680px){ header{padding:0 18px;} .guide-body{padding:40px 18px 80px;} .mission-types{grid-template-columns:1fr;} }
+    </style>
+</head>
+<body>
+<canvas id="particles-canvas"></canvas>
+<header>
+    <div class="nav-left">
+        <img src="Logo_ARCANIS.png" alt="Logo" class="nav-logo-img" onerror="this.style.display='none'">
+        <a href="index.html" class="nav-logo">Arcanis</a>
+    </div>
+    <a href="index.html#guias" class="nav-back">← Volver a Guías</a>
+</header>
+<div class="guide-hero">
+    <div class="guide-hero-content">
+        <p class="guide-eyebrow">Guía del Servidor</p>
+        <h1>📜 Misiones y Desafíos</h1>
+        <p>Completa misiones, supera desafíos y gana recompensas exclusivas — desde llaves mágicas hasta llaves épicas.</p>
+    </div>
+</div>
+<div class="guide-body">
+    <a href="index.html#guias" class="back-btn">← Volver a Guías</a>
+
+    <div class="mission-types">
+        <!-- ESTÁNDAR -->
+        <div class="mission-type" style="border-color:rgba(124,58,237,0.3);background:linear-gradient(180deg,rgba(124,58,237,0.05),transparent);">
+            <div class="mission-type-header">
+                <div class="mt-icon">📋</div>
+                <div class="mt-title" style="color:var(--purple-light);">Misiones Estándar</div>
+                <span class="mt-freq" style="background:rgba(124,58,237,0.15);color:var(--purple-light);">Sin tiempo límite</span>
+            </div>
+            <p class="mt-desc">Misiones permanentes que puedes completar a tu propio ritmo. Perfectas para explorar todas las mecánicas del servidor sin presión de tiempo.</p>
+            <div class="mt-reward" style="background:rgba(124,58,237,0.1);">
+                <span style="font-size:1.2rem;">🗝️</span>
+                <div>
+                    <div class="mt-reward-label">Recompensa</div>
+                    <div class="mt-reward-value" style="color:var(--purple-light);">ArCoins + ítems variados</div>
+                </div>
+            </div>
+        </div>
+        <!-- DIARIAS -->
+        <div class="mission-type" style="border-color:rgba(217,70,239,0.3);background:linear-gradient(180deg,rgba(217,70,239,0.05),transparent);">
+            <div class="mission-type-header">
+                <div class="mt-icon">☀️</div>
+                <div class="mt-title" style="color:var(--magenta);">Desafíos Diarios</div>
+                <span class="mt-freq" style="background:rgba(217,70,239,0.12);color:var(--magenta);">Se reinician cada día</span>
+            </div>
+            <p class="mt-desc">Cada día aparece un nuevo desafío diferente — minar materiales, cazar mobs, craftear objetos y más. Complétalo antes de que se reinicie.</p>
+            <div class="mt-reward" style="background:rgba(217,70,239,0.08);">
+                <span style="font-size:1.2rem;">✨</span>
+                <div>
+                    <div class="mt-reward-label">Recompensa al completar</div>
+                    <div class="mt-reward-value" style="color:var(--magenta);">🗝️ Llave Mágica</div>
+                </div>
+            </div>
+        </div>
+        <!-- SEMANALES -->
+        <div class="mission-type" style="border-color:rgba(251,191,36,0.3);background:linear-gradient(180deg,rgba(251,191,36,0.05),transparent);">
+            <div class="mission-type-header">
+                <div class="mt-icon">📅</div>
+                <div class="mt-title" style="color:#fbbf24;">Desafíos Semanales</div>
+                <span class="mt-freq" style="background:rgba(251,191,36,0.1);color:#fbbf24;">Se reinician cada semana</span>
+            </div>
+            <p class="mt-desc">Un conjunto de misiones que debes ir completando a lo largo de toda la semana. Requieren más dedicación, pero la recompensa vale la pena.</p>
+            <div class="mt-reward" style="background:rgba(251,191,36,0.07);">
+                <span style="font-size:1.2rem;">⚡</span>
+                <div>
+                    <div class="mt-reward-label">Recompensa al completar todo</div>
+                    <div class="mt-reward-value" style="color:#fbbf24;">🗝️ Llave Épica</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="section-title">📖 Ejemplos de Misiones</p>
+    <div class="example-missions">
+        <div class="example-item">
+            <span class="example-icon">⛏️</span>
+            <span class="example-text"><strong>Diaria:</strong> Mina un cofre lleno de piedra (27 stacks) antes de la medianoche.</span>
+            <span class="example-reward" style="background:rgba(217,70,239,0.12);color:var(--magenta);">Llave Mágica</span>
+        </div>
+        <div class="example-item">
+            <span class="example-icon">🌲</span>
+            <span class="example-text"><strong>Diaria:</strong> Tala 5 stacks de madera de cualquier tipo en un mismo día.</span>
+            <span class="example-reward" style="background:rgba(217,70,239,0.12);color:var(--magenta);">Llave Mágica</span>
+        </div>
+        <div class="example-item">
+            <span class="example-icon">🗡️</span>
+            <span class="example-text"><strong>Diaria:</strong> Elimina 50 mobs hostiles antes de que termine el día.</span>
+            <span class="example-reward" style="background:rgba(217,70,239,0.12);color:var(--magenta);">Llave Mágica</span>
+        </div>
+        <div class="example-item">
+            <span class="example-icon">🏹</span>
+            <span class="example-text"><strong>Semanal:</strong> Completa todas las misiones diarias de la semana sin fallar ninguna.</span>
+            <span class="example-reward" style="background:rgba(251,191,36,0.1);color:#fbbf24;">Llave Épica</span>
+        </div>
+        <div class="example-item">
+            <span class="example-icon">🌾</span>
+            <span class="example-text"><strong>Semanal:</strong> Cosecha una cantidad determinada de cultivos a lo largo de la semana.</span>
+            <span class="example-reward" style="background:rgba(251,191,36,0.1);color:#fbbf24;">Llave Épica</span>
+        </div>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:40px;">* Los ejemplos son ilustrativos. Las misiones exactas cambian cada día y cada semana.</p>
+
+    <p class="section-title">🎁 ¿Qué son las Llaves?</p>
+    <div class="reward-grid">
+        <div class="reward-item" style="border-color:rgba(217,70,239,0.3);">
+            <div class="reward-icon">✨</div>
+            <div class="reward-name" style="color:var(--magenta);">Llave Mágica</div>
+            <div class="reward-desc">Se obtiene completando el desafío diario. Úsala para abrir el crate mágico y ganar premios sorpresa.</div>
+        </div>
+        <div class="reward-item" style="border-color:rgba(251,191,36,0.3);">
+            <div class="reward-icon">⚡</div>
+            <div class="reward-name" style="color:#fbbf24;">Llave Épica</div>
+            <div class="reward-desc">Se obtiene completando el desafío semanal completo. Abre el crate épico con recompensas de mayor valor.</div>
+        </div>
+        <div class="reward-item">
+            <div class="reward-icon">🗝️</div>
+            <div class="reward-name">Otras Llaves</div>
+            <div class="reward-desc">También puedes obtener llaves a través de misiones estándar, votaciones y eventos especiales.</div>
+        </div>
+    </div>
+
+    <p class="section-title">💡 Cómo Acceder a las Misiones</p>
+    <div class="tip-box">
+        <span style="font-size:1.4rem;flex-shrink:0;">📌</span>
+        <p>Para ver y aceptar misiones, usa el comando <strong>/misiones</strong> en el servidor o interactúa con el NPC de misiones en el spawn. Las misiones diarias y semanales se renuevan automáticamente — ¡no olvides <strong>reclamar tus recompensas</strong> antes de que expiren!</p>
+    </div>
+
+    <p class="section-title">⚡ KoTH — King of the Hill</p>
+    <div class="tip-box" style="margin-top:0; border-color:rgba(251,191,36,0.25);background:rgba(251,191,36,0.04);">
+        <span style="font-size:1.4rem;flex-shrink:0;">👑</span>
+        <p>Además de las misiones, Arcanis cuenta con <strong>eventos de KoTH diarios</strong> en horarios fijos. Conquista y defiende la zona del KoTH para llevarte recompensas especiales. ¡Mantente atento al anuncio en el chat del servidor y en Discord!</p>
+    </div>
+</div>
+<script>
+(function(){const canvas=document.getElementById('particles-canvas');const ctx=canvas.getContext('2d');let pts=[];function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}function newP(){return{x:Math.random()*canvas.width,y:canvas.height+20,r:Math.random()*1.5+0.4,speed:Math.random()*0.5+0.25,alpha:Math.random()*0.45+0.1,drift:(Math.random()-0.5)*0.28};}function init(){resize();pts=Array.from({length:35},newP);}function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);pts.forEach(p=>{const prog=1-(p.y/canvas.height);const fade=prog<0.5?p.alpha:p.alpha*(1-(prog-0.5)/0.5);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(217,70,239,${Math.max(0,fade)})`;ctx.fill();p.y-=p.speed;p.x+=p.drift;if(p.y<canvas.height*0.5||p.x<-5||p.x>canvas.width+5)Object.assign(p,newP());});requestAnimationFrame(draw);}window.addEventListener('resize',resize);init();draw();})();
+</script>
+</body>
+</html>

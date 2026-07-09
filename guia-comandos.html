@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcanis | Comandos Básicos</title>
+    <link rel="icon" type="image/png" href="Logo_ARCANIS.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --black:#080810; --card:#16162a; --border:rgba(124,58,237,0.18); --border-hover:rgba(124,58,237,0.5); --purple:#7c3aed; --purple-light:#9d5cff; --magenta:#d946ef; --white:#f8f8ff; --muted:#888899; }
+        html { scroll-behavior: smooth; }
+        body { font-family:'Inter',sans-serif; background:var(--black); color:var(--white); min-height:100vh; overflow-x:hidden; }
+        #particles-canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+
+        header { position:sticky; top:0; z-index:100; background:rgba(8,8,16,0.8); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); padding:0 48px; height:62px; display:flex; align-items:center; justify-content:space-between; }
+        .nav-left { display:flex; align-items:center; gap:12px; }
+        .nav-logo-img { width:32px; height:32px; image-rendering:pixelated; }
+        .nav-logo { font-family:'Cinzel',serif; font-size:1rem; font-weight:700; color:var(--white); text-decoration:none; letter-spacing:3px; }
+        .nav-back { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); text-decoration:none; padding:7px 18px; border:1px solid var(--border); border-radius:6px; transition:all 0.2s; }
+        .nav-back:hover { color:var(--white); border-color:var(--border-hover); }
+
+        .guide-hero { position:relative; z-index:1; padding:80px 32px 60px; text-align:center; background:linear-gradient(135deg,rgba(124,58,237,0.12) 0%,rgba(8,8,16,0.9) 50%,rgba(217,70,239,0.08) 100%); border-bottom:1px solid var(--border); }
+        .guide-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 80%,rgba(124,58,237,0.15) 0%,transparent 65%); }
+        .guide-hero-content { position:relative; z-index:2; }
+        .guide-eyebrow { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:4px; text-transform:uppercase; color:var(--purple-light); margin-bottom:12px; }
+        .guide-hero h1 { font-family:'Cinzel',serif; font-size:clamp(2rem,5vw,3rem); font-weight:900; color:var(--white); letter-spacing:2px; margin-bottom:14px; text-shadow:0 0 40px rgba(217,70,239,0.3); }
+        .guide-hero p { color:var(--muted); font-size:1rem; max-width:520px; margin:0 auto; line-height:1.7; }
+
+        .guide-body { position:relative; z-index:1; max-width:920px; margin:0 auto; padding:64px 32px 100px; }
+
+        .back-btn { display:inline-flex; align-items:center; gap:8px; font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:10px 20px; transition:all 0.2s; margin-bottom:48px; }
+        .back-btn:hover { color:var(--white); border-color:var(--border-hover); }
+
+        /* CATEGORÍAS NAV */
+        .cat-nav { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px; }
+        .cat-btn { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:1.5px; text-transform:uppercase; padding:7px 16px; border-radius:6px; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all 0.2s; text-decoration:none; }
+        .cat-btn:hover { border-color:var(--border-hover); color:var(--white); }
+        .cat-btn.active { background:var(--purple); border-color:var(--purple); color:var(--white); }
+
+        /* SECCIÓN */
+        .cmd-section { margin-bottom: 56px; }
+        .section-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+        .section-icon { font-size:1.6rem; }
+        .section-title { font-family:'Cinzel',serif; font-size:1.1rem; font-weight:700; color:var(--white); letter-spacing:1px; }
+        .section-desc { font-size:0.82rem; color:var(--muted); margin-top:3px; }
+
+        /* COMANDOS */
+        .cmd-list { display:flex; flex-direction:column; gap:8px; }
+        .cmd-item { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px 18px; display:grid; grid-template-columns: auto 1fr; gap:0 16px; align-items:start; transition:border-color 0.2s; }
+        .cmd-item:hover { border-color:var(--border-hover); }
+        .cmd-code { font-family:monospace; font-size:0.85rem; color:#f0abfc; background:rgba(124,58,237,0.12); border:1px solid rgba(124,58,237,0.25); padding:3px 10px; border-radius:5px; white-space:nowrap; align-self:center; }
+        .cmd-desc { font-size:0.83rem; color:var(--muted); line-height:1.55; align-self:center; }
+        .cmd-badge { font-family:'Cinzel',serif; font-size:0.55rem; letter-spacing:1.5px; text-transform:uppercase; background:rgba(192,38,211,0.15); border:1px solid rgba(192,38,211,0.3); color:#d946ef; padding:2px 7px; border-radius:20px; margin-left:8px; vertical-align:middle; white-space:nowrap; }
+
+        @media (max-width:680px) { header{padding:0 18px;} .guide-body{padding:40px 18px 80px;} .cmd-item{grid-template-columns:1fr;gap:8px;} }
+    </style>
+</head>
+<body>
+<canvas id="particles-canvas"></canvas>
+
+<header>
+    <div class="nav-left">
+        <img src="Logo_ARCANIS.png" alt="Logo" class="nav-logo-img" onerror="this.style.display='none'">
+        <a href="index.html" class="nav-logo">Arcanis</a>
+    </div>
+    <a href="index.html#guias" class="nav-back">← Volver a Guías</a>
+</header>
+
+<div class="guide-hero">
+    <div class="guide-hero-content">
+        <p class="guide-eyebrow">Guía del Servidor</p>
+        <h1>⌨️ Comandos del Servidor</h1>
+        <p>Lista completa de comandos disponibles en Arcanis, organizados por categoría.</p>
+    </div>
+</div>
+
+<div class="guide-body">
+    <a href="index.html#guias" class="back-btn">← Volver a Guías</a>
+
+    <!-- NAV CATEGORÍAS -->
+    <div class="cat-nav">
+        <a href="#general" class="cat-btn active">⚙️ General</a>
+        <a href="#discord" class="cat-btn">💬 Discord</a>
+        <a href="#economia" class="cat-btn">💰 Economía</a>
+        <a href="#pwarps" class="cat-btn">🗺️ Pwarps</a>
+        <a href="#clanes" class="cat-btn">⚔️ Clanes</a>
+    </div>
+
+    <!-- GENERAL -->
+    <div class="cmd-section" id="general">
+        <div class="section-header">
+            <span class="section-icon">⚙️</span>
+            <div>
+                <div class="section-title">Comandos Generales</div>
+                <div class="section-desc">Comandos básicos para el día a día en el servidor.</div>
+            </div>
+        </div>
+        <div class="cmd-list">
+            <div class="cmd-item"><span class="cmd-code">/tpa (usuario)</span><span class="cmd-desc">Solicita a un jugador teletransportarte con él.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/tpaccept</span><span class="cmd-desc">Acepta una solicitud de TPA previamente recibida.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/tpacancel</span><span class="cmd-desc">Cancela una solicitud de TPA previamente enviada.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pay (usuario) (monto)</span><span class="cmd-desc">Envía ArCoins a otro jugador.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/fly</span><span class="cmd-desc">Habilita el modo vuelo. <span class="cmd-badge">Rango Mago o superior</span></span></div>
+            <div class="cmd-item"><span class="cmd-code">/home</span><span class="cmd-desc">Te teletransporta a tu punto de inicio establecido.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/sethome</span><span class="cmd-desc">Establece tu punto de inicio en tu ubicación actual.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/spawn</span><span class="cmd-desc">Te teletransporta al spawn del servidor.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/sit</span><span class="cmd-desc">Siéntate en el suelo o en cualquier bloque sólido.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/msg (usuario) (mensaje)</span><span class="cmd-desc">Envía un mensaje privado a otro jugador.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/r (mensaje)</span><span class="cmd-desc">Responde al último mensaje privado recibido.</span></div>
+        </div>
+    </div>
+
+    <!-- DISCORD -->
+    <div class="cmd-section" id="discord">
+        <div class="section-header">
+            <span class="section-icon">💬</span>
+            <div>
+                <div class="section-title">Discord</div>
+                <div class="section-desc">Comandos para vincular y gestionar tu cuenta de Discord con Minecraft.</div>
+            </div>
+        </div>
+        <div class="cmd-list">
+            <div class="cmd-item"><span class="cmd-code">/discord</span><span class="cmd-desc">Recibe una invitación para unirte a nuestro Discord oficial.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/discord link</span><span class="cmd-desc">Obtén un código de 4 dígitos para vincular tu rango de Minecraft a Discord. Usa el canal <strong style="color:var(--white);">#🔗│vincular-cuenta</strong>.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/discord unlink</span><span class="cmd-desc">Desvincula tu cuenta de Discord (no recomendable, perderás los beneficios de rango en Discord).</span></div>
+        </div>
+    </div>
+
+    <!-- ECONOMÍA -->
+    <div class="cmd-section" id="economia">
+        <div class="section-header">
+            <span class="section-icon">💰</span>
+            <div>
+                <div class="section-title">Economía</div>
+                <div class="section-desc">Gestiona tus ArCoins y participa en la economía del servidor.</div>
+            </div>
+        </div>
+        <div class="cmd-list">
+            <div class="cmd-item"><span class="cmd-code">/shop</span><span class="cmd-desc">Abre la tienda de recursos del servidor para comprar y vender materiales.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pay (usuario) (monto)</span><span class="cmd-desc">Envía ArCoins a un jugador especificado.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/balance o /money</span><span class="cmd-desc">Consulta tu saldo actual de ArCoins.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pwarp o /pw</span><span class="cmd-desc">Explora los warps creados por otros jugadores en el servidor.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/ah</span><span class="cmd-desc">Abre la casa de subastas para comprar y vender ítems entre jugadores.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/coinflip</span><span class="cmd-desc">Apuesta tus ArCoins en una moneda al aire contra otro jugador.</span></div>
+        </div>
+    </div>
+
+    <!-- PWARPS -->
+    <div class="cmd-section" id="pwarps">
+        <div class="section-header">
+            <span class="section-icon">🗺️</span>
+            <div>
+                <div class="section-title">Player Warps</div>
+                <div class="section-desc">Crea y gestiona tus propios puntos de teletransporte públicos. Costo de creación: <strong style="color:var(--white);">25,000 ArCoins</strong>.</div>
+            </div>
+        </div>
+        <div class="cmd-list">
+            <div class="cmd-item"><span class="cmd-code">/pwarp o /pw</span><span class="cmd-desc">Abre el menú y explora los warps de otros jugadores.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pw set (nombre)</span><span class="cmd-desc">Establece un warp en tu ubicación actual. Costo: 25,000 ArCoins.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pw reset</span><span class="cmd-desc">Restablece la ubicación de un warp sin necesidad de eliminarlo.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pw rename (actual) (nuevo)</span><span class="cmd-desc">Cambia el nombre de un warp existente.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pw desc set/remove (desc)</span><span class="cmd-desc">Establece o elimina la descripción de un warp.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pw icon set/remove (warp)</span><span class="cmd-desc">Establece un ícono para un warp. Lleva el objeto deseado en la mano.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pw category set/remove/clear/list (cat)</span><span class="cmd-desc">Gestiona la categoría de un warp para que los usuarios lo encuentren más fácilmente.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/pw remove (warp)</span><span class="cmd-desc">Elimina un warp seleccionado permanentemente.</span></div>
+        </div>
+    </div>
+
+    <!-- CLANES -->
+    <div class="cmd-section" id="clanes">
+        <div class="section-header">
+            <span class="section-icon">⚔️</span>
+            <div>
+                <div class="section-title">Clanes</div>
+                <div class="section-desc">Crea y gestiona tu clan. Costo de creación: <strong style="color:var(--white);">25,000 ArCoins</strong>.</div>
+            </div>
+        </div>
+        <div class="cmd-list">
+            <div class="cmd-item"><span class="cmd-code">/clan create (nombre)</span><span class="cmd-desc">Crea un clan personalizado. Costo: 25,000 ArCoins.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/clan join (nombre)</span><span class="cmd-desc">Únete a un clan público o acepta una invitación previa.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/clan member invite (usuario)</span><span class="cmd-desc">Envía una invitación a un jugador para unirse a tu clan.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/clan promote (usuario)</span><span class="cmd-desc">Asciende a un miembro al siguiente rango dentro del clan.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/clan demote (usuario)</span><span class="cmd-desc">Desciende a un miembro al rango anterior dentro del clan.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/clan kick (usuario)</span><span class="cmd-desc">Expulsa a un miembro de tu clan.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/clan ban (usuario)</span><span class="cmd-desc">Banea a un jugador de tu clan, impidiéndole volver a unirse.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/clan ally add/deny/list/remove/accept (clan)</span><span class="cmd-desc">Gestiona alianzas con otros clanes.</span></div>
+            <div class="cmd-item"><span class="cmd-code">/clan rival add/deny/list/remove/accept (clan)</span><span class="cmd-desc">Gestiona rivalidades con otros clanes.</span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    const canvas=document.getElementById('particles-canvas');
+    const ctx=canvas.getContext('2d');
+    let pts=[];
+    function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+    function newP(){return{x:Math.random()*canvas.width,y:canvas.height+20,r:Math.random()*1.5+0.4,speed:Math.random()*0.5+0.25,alpha:Math.random()*0.45+0.1,drift:(Math.random()-0.5)*0.28};}
+    function init(){resize();pts=Array.from({length:35},newP);}
+    function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pts.forEach(p=>{
+            const prog=1-(p.y/canvas.height);
+            const fade=prog<0.5?p.alpha:p.alpha*(1-(prog-0.5)/0.5);
+            ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle=`rgba(217,70,239,${Math.max(0,fade)})`;ctx.fill();
+            p.y-=p.speed;p.x+=p.drift;
+            if(p.y<canvas.height*0.5||p.x<-5||p.x>canvas.width+5)Object.assign(p,newP());
+        });
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize',resize);init();draw();
+})();
+
+// Highlight active category on scroll
+const sections = document.querySelectorAll('.cmd-section');
+const catBtns = document.querySelectorAll('.cat-btn');
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 120) current = s.id; });
+    catBtns.forEach(b => { b.classList.toggle('active', b.getAttribute('href') === '#'+current); });
+});
+</script>
+</body>
+</html>
