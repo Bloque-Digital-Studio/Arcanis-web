@@ -274,6 +274,57 @@
         .role-open     { color: var(--muted); }
         .staff-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
 
+        /* STAFF — tarjeta destacada para fundadores (Owner / Co-Owner) */
+        .staff-founder {
+            position: relative;
+            border: 2px solid transparent;
+            background-image:
+                linear-gradient(var(--card), var(--card)),
+                linear-gradient(135deg, #f5c344, var(--magenta), var(--purple-light), #f5c344);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            background-size: 100% 100%, 300% 300%;
+            background-position: 0 0, 0% 50%;
+            animation: founder-border-shift 6s ease infinite;
+            box-shadow: 0 0 28px rgba(217,70,239,0.22), 0 14px 38px rgba(0,0,0,0.35);
+        }
+        .staff-founder:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 0 44px rgba(217,70,239,0.4), 0 18px 46px rgba(0,0,0,0.45);
+        }
+        .staff-founder-badge {
+            position: absolute; top: 12px; right: 14px; z-index: 3;
+            font-size: 1.2rem; line-height: 1;
+            filter: drop-shadow(0 0 8px rgba(245,195,68,0.7));
+        }
+        .staff-founder .staff-name { background: linear-gradient(90deg, #f5c344, var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        @keyframes founder-border-shift {
+            0%, 100% { background-position: 0 0, 0% 50%; }
+            50%      { background-position: 0 0, 100% 50%; }
+        }
+
+        /* STAFF — bordes con degradado sutil por rango (sin animación, discretos frente a los fundadores) */
+        .staff-rank {
+            position: relative;
+            border: 1px solid transparent;
+            background-image:
+                linear-gradient(var(--card), var(--card)),
+                var(--rank-gradient);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+        .staff-rank:hover { box-shadow: 0 12px 36px var(--rank-glow); }
+
+        .staff-helper     { --rank-gradient: linear-gradient(135deg, #a3e635, #fde047); --rank-glow: rgba(163,230,53,0.18); }
+        .staff-helperplus { --rank-gradient: linear-gradient(135deg, var(--purple), #4c1d95); --rank-glow: rgba(124,58,237,0.2); }
+        .staff-mod        { --rank-gradient: linear-gradient(135deg, #7dd3fc, #5eead4); --rank-glow: rgba(94,234,212,0.18); }
+        .staff-admin      { --rank-gradient: linear-gradient(135deg, #ef4444, var(--magenta), #4c1d95); --rank-glow: rgba(217,70,239,0.2); }
+
+        .staff-helper .staff-name     { background: linear-gradient(90deg, #a3e635, #fde047); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .staff-helperplus .staff-name { background: linear-gradient(90deg, var(--purple), #4c1d95); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .staff-mod .staff-name        { background: linear-gradient(90deg, #7dd3fc, #5eead4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .staff-admin .staff-name      { background: linear-gradient(90deg, #ef4444, var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
         /* TIENDA */
         .store-hero { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 56px 40px; text-align: center; }
         .store-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 36px 0; }
@@ -620,32 +671,34 @@
         <h2 class="block-title reveal">Nuestro Staff</h2>
         <p class="block-sub reveal">Las personas detrás de Arcanis.</p>
         <div class="staff-grid">
-            <div class="staff-card reveal reveal-delay-1">
+            <div class="staff-card staff-founder reveal reveal-delay-1">
+                <div class="staff-founder-badge">👑</div>
                 <div class="skin-wrap"><img src="https://mc-heads.net/body/Armandrox12" alt="Armandrox12" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>A</div>'"></div>
                 <div class="staff-info"><div class="staff-name">Armandrox12</div><div class="staff-role role-owner">Owner / Fundador</div><p class="staff-desc">El creador original de Arcanis. Arquitecto del mundo y de cada sistema que lo sustenta.</p></div>
             </div>
-            <div class="staff-card reveal reveal-delay-2">
+            <div class="staff-card staff-founder reveal reveal-delay-2">
+                <div class="staff-founder-badge">👑</div>
                 <div class="skin-wrap"><img src="https://mc-heads.net/body/Jorge_9" alt="Jorge_9" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>W</div>'"></div>
                 <div class="staff-info"><div class="staff-name">Jorge_9</div><div class="staff-role role-coowner">Co-Owner / Admin</div><p class="staff-desc">Co-fundador y desarrollador principal. Encargado de la infraestructura, el bot y la experiencia del servidor.</p></div>
             </div>
-            <div class="staff-card reveal reveal-delay-4">
+            <div class="staff-card staff-rank staff-helperplus reveal reveal-delay-4">
                 <div class="skin-wrap"><img src="https://mc-heads.net/body/n4lvrxm" alt="n4lvrxm" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>k</div>'"></div>
                 <div class="staff-info"><div class="staff-name">n4lvrxm</div><div class="staff-role role-helperplus">Helper+</div><p class="staff-desc">Pilar fundamental. Con la experiencia necesaria para ayudar a los jugadoresy asegurar el orden en el servidor.</p></div>
             </div>
-            <div class="staff-card reveal reveal-delay-3">
+            <div class="staff-card staff-rank staff-helper reveal reveal-delay-3">
                 <div class="skin-wrap"><img src="https://mc-heads.net/body/SrSammy" alt="SrSammy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>S</div>'"></div>
                 <div class="staff-info"><div class="staff-name">SrSammy</div><div class="staff-role role-helper">Helper</div><p class="staff-desc">Pilar de la comunidad de Arcanis. Siempre presente para ayudar a los jugadores y mantener el orden en el servidor.</p></div>
             </div>
-            <div class="staff-card reveal reveal-delay-4">
+            <div class="staff-card staff-rank staff-helper reveal reveal-delay-4">
                 <div class="skin-wrap"><img src="https://mc-heads.net/body/Kentinal145" alt="Kentinal145" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>k</div>'"></div>
                 <div class="staff-info"><div class="staff-name">Kentinal145</div><div class="staff-role role-helper">Helper</div><p class="staff-desc">Pilar de la comunidad de Arcanis. Siempre presente para ayudar a los jugadores y mantener el orden en el servidor.</p></div>
             </div>
         
-            <div class="staff-card reveal reveal-delay-5">
+            <div class="staff-card staff-rank staff-mod reveal reveal-delay-5">
                 <div class="skin-wrap" style="align-items:center;justify-content:center;"><div style="font-size:4rem;opacity:0.2;margin-top:20px;">?</div></div>
                 <div class="staff-info"><div class="staff-name">Buscando Moderador...</div><div class="staff-role role-mod">Moderador</div><p class="staff-desc">¿Quieres formar parte del equipo? Postúlate en nuestro Discord.</p></div>
             </div>
-            <div class="staff-card reveal reveal-delay-6">
+            <div class="staff-card staff-rank staff-helperplus reveal reveal-delay-6">
                 <div class="skin-wrap" style="align-items:center;justify-content:center;"><div style="font-size:4rem;opacity:0.2;margin-top:20px;">?</div></div>
                 <div class="staff-info"><div class="staff-name">Buscando Helper+...</div><div class="staff-role role-helperplus">Helper+</div><p class="staff-desc">¿Quieres formar parte del equipo? Postúlate en nuestro Discord.</p></div>
             </div>
