@@ -11,21 +11,24 @@
     <meta name="author" content="Arcanis Network">
     <meta name="theme-color" content="#7c3aed">
 
+    <!-- Canonical -->
+    <link rel="canonical" href="https://arcanisserver.com/">
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://arcanis-server-oficial-web.vercel.app">
+    <meta property="og:url" content="https://arcanisserver.com/">
     <meta property="og:title" content="Arcanis | Servidor Minecraft Survival">
     <meta property="og:description" content="Servidor Minecraft Survival para habla hispana. Rangos, misiones, economía y generación de mundo única. ¡Lanzamiento Diciembre 2026!">
-    <meta property="og:image" content="Logo_ARCANIS.png">
+    <meta property="og:image" content="https://arcanisserver.com/Logo_ARCANIS.png">
     <meta property="og:locale" content="es_MX">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Arcanis | Servidor Minecraft Survival">
     <meta name="twitter:description" content="Servidor Minecraft Survival para habla hispana. ¡Lanzamiento Diciembre 2026!">
-    <meta name="twitter:image" content="Logo_ARCANIS.png">
+    <meta name="twitter:image" content="https://arcanisserver.com/Logo_ARCANIS.png">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="Logo_ARCANIS.png">
-    <link rel="apple-touch-icon" href="Logo_ARCANIS.png">
+    <link rel="icon" type="image/png" href="Logo_ARCANIS-256.png">
+    <link rel="apple-touch-icon" href="Logo_ARCANIS-256.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -106,9 +109,16 @@
         nav a.nav-tienda { background: var(--purple); color: var(--white); padding: 7px 18px; margin-left: 8px; transition: background 0.2s, transform 0.15s; }
         nav a.nav-tienda:hover { background: var(--purple-light); transform: scale(1.03); }
 
+        /* NAV TOGGLE (hamburguesa, oculto en escritorio) */
+        #nav-toggle { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 38px; height: 38px; background: transparent; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; padding: 0; }
+        #nav-toggle span { width: 18px; height: 2px; background: var(--white); border-radius: 2px; transition: transform 0.25s ease, opacity 0.25s ease; }
+        #nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #nav-toggle.open span:nth-child(2) { opacity: 0; }
+        #nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
         /* HERO */
         .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 20px 60px; overflow: hidden; }
-        .hero-bg { position: absolute; inset: 0; background-image: url('castillo.png'); background-size: cover; background-position: center 30%; background-repeat: no-repeat; z-index: 0; }
+        .hero-bg { position: absolute; inset: 0; background-image: url('castillo.jpg'); background-size: cover; background-position: center 30%; background-repeat: no-repeat; z-index: 0; }
         .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(8,8,16,0.3) 0%, rgba(8,8,16,0.1) 35%, rgba(8,8,16,0.6) 72%, rgba(8,8,16,1) 100%), radial-gradient(ellipse 80% 60% at 50% 40%, rgba(124,58,237,0.1) 0%, transparent 70%); }
         .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
 
@@ -197,6 +207,15 @@
         #lightbox-close:hover { color: var(--white); }
 
         /* LORE */
+        /* HISTORIA — fondo un poco más claro para que se perciban las siluetas */
+        #historia { background: rgba(124,58,237,0.065); overflow: hidden; }
+
+        /* Siluetas de personajes sobresaliendo de los bordes */
+        .lore-figure { position: absolute; bottom: 0; z-index: -1; height: 460px; width: auto; pointer-events: none; opacity: 0.92; filter: drop-shadow(0 0 45px rgba(124,58,237,0.4)); }
+        .lore-figure-left { left: 0; transform: translateX(-40%); }
+        .lore-figure-right { right: 0; transform: translateX(40%); }
+        @media (max-width: 1300px) { .lore-figure { display: none; } }
+
         .lore-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
         .lore-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 18px; transition: border-color 0.25s, transform 0.2s; }
         .lore-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
@@ -366,7 +385,19 @@
 
         @media (max-width: 680px) {
             header { padding: 0 18px; }
-            nav a:not(.nav-tienda) { display: none; }
+            #nav-toggle { display: flex; }
+            nav#main-nav {
+                position: fixed; top: 62px; left: 0; right: 0; z-index: 99;
+                flex-direction: column; align-items: stretch; gap: 2px;
+                background: rgba(8,8,16,0.97); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+                border-bottom: 1px solid var(--border);
+                padding: 10px 18px 18px;
+                max-height: 0; overflow: hidden;
+                transition: max-height 0.3s ease, padding 0.3s ease;
+            }
+            nav#main-nav.open { max-height: 80vh; padding: 10px 18px 18px; overflow-y: auto; }
+            nav#main-nav a { width: 100%; padding: 13px 10px; text-align: center; border-radius: 6px; }
+            nav#main-nav a.nav-tienda { margin-left: 0; margin-top: 6px; text-align: center; }
             .hero-info-row { gap: 28px; }
             .block { padding: 60px 18px; }
             #news-banner { padding: 9px 40px 9px 16px; font-size: 0.62rem; }
@@ -378,7 +409,7 @@
 <body>
 
 <div id="loader">
-    <img src="Logo_ARCANIS.png" alt="Arcanis" onerror="this.style.display='none'">
+    <img src="Logo_ARCANIS-256.png" alt="Arcanis" width="110" height="110" onerror="this.style.display='none'">
     <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
     <div id="loader-text">Invocando magia...</div>
 </div>
@@ -400,14 +431,14 @@
 <!-- HEADER -->
 <header>
     <div class="nav-left">
-        <img src="Logo_ARCANIS.png" alt="Logo" class="nav-logo-img" onerror="this.style.display='none'">
+        <img src="Logo_ARCANIS-256.png" alt="Logo" class="nav-logo-img" width="32" height="32" onerror="this.style.display='none'">
         <a href="#inicio" style="display:flex;align-items:center;">
-            <img src="Arcanis-Text.png" alt="Arcanis" style="height:22px;image-rendering:pixelated;filter:drop-shadow(0 0 6px rgba(217,70,239,0.5));"
+            <img src="Arcanis-Text.png" alt="Arcanis" width="97" height="22" style="height:22px;image-rendering:pixelated;filter:drop-shadow(0 0 6px rgba(217,70,239,0.5));"
                 onerror="this.style.display='none'; document.getElementById('nav-text-fallback').style.display='inline';">
         </a>
         <a href="#inicio" id="nav-text-fallback" class="nav-logo" style="display:none;">ARCANIS</a>
     </div>
-    <nav>
+    <nav id="main-nav">
         <a href="#inicio">Inicio</a>
         <a href="#mundo">Mundo</a>
         <a href="#historia">Historia</a>
@@ -417,6 +448,9 @@
         <a href="#tienda">Tienda</a>
         <a href="https://arcanis-server-store.tebex.io" target="_blank" class="nav-tienda">Ir a la Tienda →</a>
     </nav>
+    <button id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+    </button>
 </header>
 
 <!-- HERO -->
@@ -435,7 +469,7 @@
                 <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
                 <div><div class="info-label">IP: arcanis.servemc.net</div><div class="info-sub" id="ip-sub">Click para copiar</div></div>
             </div>
-            <a class="hero-info-item" href="https://discord.gg/HhSUH7BY4" target="_blank">
+            <a class="hero-info-item" href="https://discord.gg/GycJsW5w7H" target="_blank">
                 <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.935 19.935 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.138 13.138 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></div>
                 <div><div class="info-label">Únete a nuestro Discord</div><div class="info-sub">Click para unirte</div></div>
             </a>
@@ -460,7 +494,7 @@
             <div class="card reveal reveal-delay-3"><div class="card-icon">💰</div><h3>Economía con ArCoins</h3><p>Compra, vende y domina el mercado con los ArCoins, la moneda oficial de Arcanis. ¿Serás el más rico del servidor?</p></div>
             <div class="card reveal reveal-delay-4"><div class="card-icon">📜</div><h3>Misiones y Desafíos</h3><p>Misiones estándar, desafíos diarios y semanales con recompensas de llaves para crates exclusivas.</p></div>
             <div class="card reveal reveal-delay-5"><div class="card-icon">⚡</div><h3>KoTH Diario</h3><p>Eventos de King of the Hill en horarios fijos. Conquista la zona, defiéndela y llévate las recompensas.</p></div>
-            <div class="card reveal reveal-delay-6"><div class="card-icon">🌐</div><h3>Habla Hispana</h3><p>Comunidad para todo el mundo hispanohablante. Staff activo, Discord organizado y soporte en tu idioma.</p><a href="https://discord.gg/UGUhK8ZU4" target="_blank">Unirse al Discord →</a></div>
+            <div class="card reveal reveal-delay-6"><div class="card-icon">🌐</div><h3>Habla Hispana</h3><p>Comunidad para todo el mundo hispanohablante. Staff activo, Discord organizado y soporte en tu idioma.</p><a href="https://discord.gg/GycJsW5w7H" target="_blank">Unirse al Discord →</a></div>
         </div>
     </div>
 </section>
@@ -472,11 +506,11 @@
         <h2 class="block-title reveal">El Mundo de Arcanis</h2>
         <p class="block-sub reveal">Un mundo generado a medida — más vivo, más amplio y más épico que cualquier mundo vanilla. Cada rincón tiene algo que descubrir.</p>
         <div class="gallery-grid reveal">
-            <div class="gallery-item featured" onclick="openLightbox('world2.png')"><img src="world2.png" alt="Atardecer en Arcanis" loading="lazy"></div>
-            <div class="gallery-item" onclick="openLightbox('world5.png')"><img src="world5.png" alt="Montañas de Arcanis" loading="lazy"></div>
-            <div class="gallery-item" onclick="openLightbox('world1.png')"><img src="world1.png" alt="Bosque al amanecer" loading="lazy"></div>
-            <div class="gallery-item" onclick="openLightbox('world3.png')"><img src="world3.png" alt="Árboles rojos" loading="lazy"></div>
-            <div class="gallery-item featured" onclick="openLightbox('world4.png')"><img src="world4.png" alt="Río en el bosque" loading="lazy"></div>
+            <div class="gallery-item featured" onclick="openLightbox('world2.jpg')"><img src="world2.jpg" alt="Atardecer en Arcanis" width="1920" height="1080" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox('world5.jpg')"><img src="world5.jpg" alt="Montañas de Arcanis" width="1920" height="1080" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox('world1.jpg')"><img src="world1.jpg" alt="Bosque al amanecer" width="1920" height="1080" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox('world3.jpg')"><img src="world3.jpg" alt="Árboles rojos" width="1920" height="1080" loading="lazy"></div>
+            <div class="gallery-item featured" onclick="openLightbox('world4.jpg')"><img src="world4.jpg" alt="Río en el bosque" width="1920" height="1080" loading="lazy"></div>
         </div>
     </div>
 </section>
@@ -520,6 +554,8 @@
 
 <!-- BLOQUE: HISTORIA -->
 <section class="block block-alt" id="historia">
+    <img src="Vexar.png" alt="" class="lore-figure lore-figure-left" loading="lazy">
+    <img src="Aryndor.png" alt="" class="lore-figure lore-figure-right" loading="lazy">
     <div class="block-inner">
         <p class="eyebrow reveal">La leyenda de Arcanis</p>
         <h2 class="block-title reveal">El Mundo que te Espera</h2>
@@ -673,24 +709,24 @@
         <div class="staff-grid">
             <div class="staff-card staff-founder reveal reveal-delay-1">
                 <div class="staff-founder-badge">👑</div>
-                <div class="skin-wrap"><img src="https://mc-heads.net/body/Armandrox12" alt="Armandrox12" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>A</div>'"></div>
+                <div class="skin-wrap"><img src="https://mc-heads.net/body/Armandrox12" alt="Armandrox12" width="180" height="432" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>A</div>'"></div>
                 <div class="staff-info"><div class="staff-name">Armandrox12</div><div class="staff-role role-owner">Owner / Fundador</div><p class="staff-desc">El creador original de Arcanis. Arquitecto del mundo y de cada sistema que lo sustenta.</p></div>
             </div>
             <div class="staff-card staff-founder reveal reveal-delay-2">
                 <div class="staff-founder-badge">👑</div>
-                <div class="skin-wrap"><img src="https://mc-heads.net/body/Jorge_9" alt="Jorge_9" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>W</div>'"></div>
+                <div class="skin-wrap"><img src="https://mc-heads.net/body/Jorge_9" alt="Jorge_9" width="180" height="432" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>W</div>'"></div>
                 <div class="staff-info"><div class="staff-name">Jorge_9</div><div class="staff-role role-coowner">Owner / Admin</div><p class="staff-desc">Co-fundador y desarrollador principal. Encargado de la infraestructura, el bot y la experiencia del servidor.</p></div>
             </div>
             <div class="staff-card staff-rank staff-helperplus reveal reveal-delay-4">
-                <div class="skin-wrap"><img src="https://mc-heads.net/body/n4lvrxm" alt="n4lvrxm" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>k</div>'"></div>
+                <div class="skin-wrap"><img src="https://mc-heads.net/body/n4lvrxm" alt="n4lvrxm" width="180" height="432" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>k</div>'"></div>
                 <div class="staff-info"><div class="staff-name">n4lvrxm</div><div class="staff-role role-helperplus">Helper+</div><p class="staff-desc">Pilar fundamental. Con la experiencia necesaria para ayudar a los jugadoresy asegurar el orden en el servidor.</p></div>
             </div>
             <div class="staff-card staff-rank staff-helper reveal reveal-delay-3">
-                <div class="skin-wrap"><img src="https://mc-heads.net/body/SrSammy" alt="SrSammy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>S</div>'"></div>
+                <div class="skin-wrap"><img src="https://mc-heads.net/body/SrSammy" alt="SrSammy" width="180" height="432" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>S</div>'"></div>
                 <div class="staff-info"><div class="staff-name">SrSammy</div><div class="staff-role role-helper">Helper</div><p class="staff-desc">Pilar de la comunidad de Arcanis. Siempre presente para ayudar a los jugadores y mantener el orden en el servidor.</p></div>
             </div>
             <div class="staff-card staff-rank staff-helper reveal reveal-delay-4">
-                <div class="skin-wrap"><img src="https://mc-heads.net/body/Kentinal145" alt="Kentinal145" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>k</div>'"></div>
+                <div class="skin-wrap"><img src="https://mc-heads.net/body/Kentinal145" alt="Kentinal145" width="180" height="432" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>k</div>'"></div>
                 <div class="staff-info"><div class="staff-name">Kentinal145</div><div class="staff-role role-helper">Helper</div><p class="staff-desc">Pilar de la comunidad de Arcanis. Siempre presente para ayudar a los jugadores y mantener el orden en el servidor.</p></div>
             </div>
         
@@ -732,8 +768,8 @@
             <p class="cta-title">¿Listo para escribir tu propia historia?</p>
             <p class="cta-sub">Arcanis llega en Diciembre 2026 · Beta en Octubre · Únete al Discord para no perderte nada.</p>
             <div class="cta-buttons">
-                <a class="btn-primary" href="https://arcanis-server-store.teRangosbex.io" target="_blank">Ver Rangos</a>
-                <a class="btn-secondary" href="https://discord.gg/HhSUH7BY4" target="_blank">Unirse al Discord</a>
+                <a class="btn-primary" href="https://arcanis-server-store.tebex.io" target="_blank">Ver Rangos</a>
+                <a class="btn-secondary" href="https://discord.gg/GycJsW5w7H" target="_blank">Unirse al Discord</a>
             </div>
         </div>
     </div>
@@ -743,11 +779,11 @@
 <footer>
     <div class="footer-top">
         <div class="footer-brand">
-            <img src="Arcanis-Text.png" alt="Arcanis" class="footer-logo" onerror="this.style.display='none'; document.getElementById('footer-text').style.display='block';">
+            <img src="Arcanis-Text.png" alt="Arcanis" class="footer-logo" width="160" height="36" onerror="this.style.display='none'; document.getElementById('footer-text').style.display='block';">
             <span id="footer-text" style="display:none; font-family:'Cinzel',serif; font-size:1.2rem; font-weight:900; letter-spacing:3px; color:#f8f8ff;">ARCANIS</span>
             <p class="footer-tagline">El servidor Survival de aventura y magia oscura.<br>Forjado por Armandrox12 & Jorge_9.</p>
             <div class="footer-socials">
-                <a href="https://discord.gg/HhSUH7BY4" target="_blank" class="footer-social-btn">
+                <a href="https://discord.gg/GycJsW5w7H" target="_blank" class="footer-social-btn">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.935 19.935 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.138 13.138 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
                     Discord
                 </a>
@@ -778,7 +814,7 @@
             </div>
             <div class="footer-col">
                 <div class="footer-col-title">Comunidad</div>
-                <a href="https://discord.gg/HhSUH7BY4" target="_blank">Discord</a>
+                <a href="https://discord.gg/GycJsW5w7H" target="_blank">Discord</a>
                 <a href="#staff">Staff</a>
                 <a href="https://arcanis-server-store.tebex.io" target="_blank">Tienda Oficial</a>
             </div>
@@ -843,6 +879,16 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 function openLightbox(src){ document.getElementById('lightbox-img').src=src; document.getElementById('lightbox').classList.add('open'); }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 document.getElementById('lightbox').addEventListener('click', function(e){ if(e.target===this) closeLightbox(); });
+
+/* NAV MÓVIL */
+function toggleMobileNav(){
+    document.getElementById('main-nav').classList.toggle('open');
+    document.getElementById('nav-toggle').classList.toggle('open');
+}
+document.querySelectorAll('#main-nav a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('main-nav').classList.remove('open');
+    document.getElementById('nav-toggle').classList.remove('open');
+}));
 
 /* TABS */
 function switchTab(tab, e){
