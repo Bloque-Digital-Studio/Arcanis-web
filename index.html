@@ -104,8 +104,10 @@
         .nav-logo-img { width: 32px; height: 32px; image-rendering: pixelated; }
         .nav-logo { font-family: var(--cinzel); font-size: 1rem; font-weight: 700; color: var(--white); text-decoration: none; letter-spacing: 3px; text-transform: uppercase; }
         nav { display: flex; align-items: center; gap: 4px; }
-        nav a { font-family: var(--cinzel); font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 6px 11px; border-radius: 5px; transition: color 0.2s, background 0.2s; }
+        nav a { position: relative; font-family: var(--cinzel); font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 6px 11px; border-radius: 5px; transition: color 0.2s, background 0.2s; }
         nav a:hover { color: var(--white); background: rgba(124,58,237,0.1); }
+        nav a.active:not(.nav-tienda) { color: var(--white); background: rgba(124,58,237,0.14); }
+        nav a.active:not(.nav-tienda)::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 1px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--purple), var(--magenta)); }
         nav a.nav-tienda { background: var(--purple); color: var(--white); padding: 7px 18px; margin-left: 8px; transition: background 0.2s, transform 0.15s; }
         nav a.nav-tienda:hover { background: var(--purple-light); transform: scale(1.03); }
 
@@ -130,8 +132,10 @@
 
         .hero-info-row { display: flex; align-items: center; justify-content: center; gap: 64px; flex-wrap: wrap; }
         .hero-info-item { display: flex; align-items: center; gap: 14px; cursor: pointer; text-decoration: none; }
-        .icon-wrap { width: 44px; height: 44px; border-radius: 50%; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); flex-shrink: 0; }
+        .icon-wrap { width: 44px; height: 44px; border-radius: 50%; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); flex-shrink: 0; transition: background 0.25s, border-color 0.25s, transform 0.25s; }
         .icon-wrap svg { width: 20px; height: 20px; fill: rgba(248,248,255,0.85); }
+        .icon-wrap.copied { background: rgba(34,197,94,0.25); border-color: rgba(34,197,94,0.6); transform: scale(1.08); }
+        .icon-wrap.copied svg { fill: #4ade80; }
         .info-label { font-family: var(--cinzel); font-size: 0.82rem; font-weight: 600; color: var(--white); letter-spacing: 1px; }
         .info-sub { font-size: 0.73rem; color: var(--purple-light); margin-top: 2px; transition: color 0.2s; }
         .hero-info-item:hover .info-sub { color: var(--magenta); }
@@ -212,8 +216,10 @@
 
         /* Siluetas de personajes sobresaliendo de los bordes */
         .lore-figure { position: absolute; bottom: 0; z-index: -1; height: 460px; width: auto; pointer-events: none; opacity: 0.92; filter: drop-shadow(0 0 45px rgba(124,58,237,0.4)); }
-        .lore-figure-left { left: 0; transform: translateX(-40%); }
-        .lore-figure-right { right: 0; transform: translateX(40%); }
+        .lore-figure-left { left: 0; animation: lore-float-left 5.2s ease-in-out infinite; }
+        .lore-figure-right { right: 0; animation: lore-float-right 5.8s ease-in-out infinite; animation-delay: -1.4s; }
+        @keyframes lore-float-left { 0%, 100% { transform: translateX(-40%) translateY(0); } 50% { transform: translateX(-40%) translateY(-14px); } }
+        @keyframes lore-float-right { 0%, 100% { transform: translateX(40%) translateY(0); } 50% { transform: translateX(40%) translateY(-14px); } }
         @media (max-width: 1300px) { .lore-figure { display: none; } }
 
         .lore-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
@@ -344,6 +350,11 @@
         .staff-mod .staff-name        { background: linear-gradient(90deg, #7dd3fc, #5eead4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .staff-admin .staff-name      { background: linear-gradient(90deg, #ef4444, var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
+        /* STAFF — vacantes abiertas, tratamiento discreto tipo "placeholder" */
+        .staff-vacant { border: 1px dashed rgba(124,58,237,0.28); opacity: 0.6; transition: border-color 0.25s, opacity 0.25s, transform 0.2s; }
+        .staff-vacant:hover { opacity: 0.85; border-color: rgba(124,58,237,0.5); box-shadow: none; }
+        .staff-vacant .staff-name { color: var(--muted); }
+
         /* TIENDA */
         .store-hero { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 56px 40px; text-align: center; }
         .store-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 36px 0; }
@@ -466,7 +477,7 @@
         <p class="hero-sub">Un servidor Survival de habla hispana donde la aventura, la magia y el destino se entrelazan.<br>Escribe tu propia historia.</p>
         <div class="hero-info-row">
             <div class="hero-info-item" onclick="copyIP()">
-                <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+                <div class="icon-wrap" id="ip-icon-wrap"><svg viewBox="0 0 24 24"><path id="ip-icon-path" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
                 <div><div class="info-label">IP: arcanis.servemc.net</div><div class="info-sub" id="ip-sub">Click para copiar</div></div>
             </div>
             <a class="hero-info-item" href="https://discord.gg/GycJsW5w7H" target="_blank">
@@ -522,9 +533,9 @@
         <h2 class="block-title reveal">Rangos del Servidor</h2>
         <p class="block-sub reveal">Desde Aprendiz hasta Ecliptus — cada rango se obtiene en la tienda oficial y desbloquea beneficios exclusivos.</p>
         <div class="ranks-grid reveal">
-            <div class="rank-card" style="border-color:rgba(0, 179, 192, 0.612);">
+            <div class="rank-card" style="border-color:rgba(45,212,191,0.4);">
                 <div class="rank-icon">🌱</div>
-                <div class="rank-name" style="color:#009a9d;">Aprendiz</div>
+                <div class="rank-name" style="color:#2dd4bf;">Aprendiz</div>
                 <div class="rank-desc">El inicio del camino</div>
             </div>
             <div class="rank-card" style="border-color:rgba(0, 255, 64, 0.3);">
@@ -730,13 +741,13 @@
                 <div class="staff-info"><div class="staff-name">Kentinal145</div><div class="staff-role role-helper">Helper</div><p class="staff-desc">Pilar de la comunidad de Arcanis. Siempre presente para ayudar a los jugadores y mantener el orden en el servidor.</p></div>
             </div>
         
-            <div class="staff-card staff-rank staff-mod reveal reveal-delay-5">
+            <div class="staff-card staff-vacant reveal reveal-delay-5">
                 <div class="skin-wrap" style="align-items:center;justify-content:center;"><div style="font-size:4rem;opacity:0.2;margin-top:20px;">?</div></div>
-                <div class="staff-info"><div class="staff-name">Buscando Moderador...</div><div class="staff-role role-mod">Moderador</div><p class="staff-desc">¿Quieres formar parte del equipo? Postúlate en nuestro Discord.</p></div>
+                <div class="staff-info"><div class="staff-name">Buscando Moderador...</div><div class="staff-role role-open">Moderador</div><p class="staff-desc">¿Quieres formar parte del equipo? Postúlate en nuestro Discord.</p></div>
             </div>
-            <div class="staff-card staff-rank staff-helperplus reveal reveal-delay-6">
+            <div class="staff-card staff-vacant reveal reveal-delay-6">
                 <div class="skin-wrap" style="align-items:center;justify-content:center;"><div style="font-size:4rem;opacity:0.2;margin-top:20px;">?</div></div>
-                <div class="staff-info"><div class="staff-name">Buscando Helper+...</div><div class="staff-role role-helperplus">Helper+</div><p class="staff-desc">¿Quieres formar parte del equipo? Postúlate en nuestro Discord.</p></div>
+                <div class="staff-info"><div class="staff-name">Buscando Helper+...</div><div class="staff-role role-open">Helper+</div><p class="staff-desc">¿Quieres formar parte del equipo? Postúlate en nuestro Discord.</p></div>
             </div>
         </div>
     </div>
@@ -875,6 +886,23 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+/* NAV — sección activa al hacer scroll */
+(function(){
+    const navLinks = [...document.querySelectorAll('#main-nav a[href^="#"]')];
+    const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    if (!sections.length) return;
+    const setActive = (link) => navLinks.forEach(a => a.classList.toggle('active', a === link));
+    const spy = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const link = navLinks.find(a => document.querySelector(a.getAttribute('href')) === entry.target);
+            if (link) setActive(link);
+        });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(s => spy.observe(s));
+    setActive(navLinks[0]);
+})();
+
 /* LIGHTBOX */
 function openLightbox(src){ document.getElementById('lightbox-img').src=src; document.getElementById('lightbox').classList.add('open'); }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
@@ -899,12 +927,21 @@ function switchTab(tab, e){
 }
 
 /* COPIAR IP */
+const IP_ICON_PIN = 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z';
+const IP_ICON_CHECK = 'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z';
 function copyIP(){
     navigator.clipboard.writeText('arcanis.servemc.net').then(()=>{
         document.getElementById('ip-sub').textContent='¡Copiada!';
+        document.getElementById('ip-icon-wrap').classList.add('copied');
+        document.getElementById('ip-icon-path').setAttribute('d', IP_ICON_CHECK);
         const t=document.getElementById('toast');
         t.classList.add('show');
-        setTimeout(()=>{ document.getElementById('ip-sub').textContent='Click to Copy'; t.classList.remove('show'); }, 2400);
+        setTimeout(()=>{
+            document.getElementById('ip-sub').textContent='Click para copiar';
+            document.getElementById('ip-icon-wrap').classList.remove('copied');
+            document.getElementById('ip-icon-path').setAttribute('d', IP_ICON_PIN);
+            t.classList.remove('show');
+        }, 2400);
     }).catch(()=>alert('IP: arcanis.servemc.net | Puerto: 24598'));
 }
 
