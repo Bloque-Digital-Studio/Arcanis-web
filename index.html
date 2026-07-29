@@ -371,9 +371,9 @@
         .cta-sub { color: var(--muted); font-size: 0.93rem; margin-bottom: 34px; }
         .cta-buttons { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
 
-        .btn-primary { background: var(--purple); color: var(--white); border: none; padding: 13px 34px; font-family: var(--cinzel); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-radius: 7px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; }
+        .btn-primary { display: inline-block; text-align: center; background: var(--purple); color: var(--white); border: none; padding: 13px 34px; font-family: var(--cinzel); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-radius: 7px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; }
         .btn-primary:hover { background: var(--purple-light); transform: scale(1.04); box-shadow: 0 4px 20px rgba(124,58,237,0.4); }
-        .btn-secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.22); padding: 13px 34px; font-family: var(--cinzel); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-radius: 7px; cursor: pointer; text-decoration: none; transition: border-color 0.2s, transform 0.15s; }
+        .btn-secondary { display: inline-block; text-align: center; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.22); padding: 13px 34px; font-family: var(--cinzel); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-radius: 7px; cursor: pointer; text-decoration: none; transition: border-color 0.2s, transform 0.15s; }
         .btn-secondary:hover { border-color: var(--white); transform: scale(1.04); }
 
         /* FOOTER */
@@ -419,9 +419,10 @@
                 border-bottom: 1px solid var(--border);
                 padding: 10px 18px 18px;
                 max-height: 0; overflow: hidden;
-                transition: max-height 0.3s ease, padding 0.3s ease;
+                opacity: 0; visibility: hidden;
+                transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.2s ease, visibility 0s linear 0.3s;
             }
-            nav#main-nav.open { max-height: 80vh; padding: 10px 18px 18px; overflow-y: auto; }
+            nav#main-nav.open { max-height: 80vh; padding: 10px 18px 18px; overflow-y: auto; opacity: 1; visibility: visible; transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.2s ease, visibility 0s linear 0s; }
             nav#main-nav a { width: 100%; padding: 13px 10px; text-align: center; border-radius: 6px; }
             nav#main-nav a.nav-tienda { margin-left: 0; margin-top: 6px; text-align: center; }
         }
