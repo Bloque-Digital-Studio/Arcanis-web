@@ -77,6 +77,8 @@
 
         @media (max-width: 680px) { header { padding: 0 18px; } .guide-body { padding: 40px 18px 80px; } .step-num { width: 46px; height: 46px; } }
     </style>
+    <link rel="stylesheet" href="guias.css?v=20261002">
+    <script src="guias.js?v=20261002" defer></script>
 </head>
 <body>
 <canvas id="particles-canvas"></canvas>
@@ -102,13 +104,8 @@
 
     <!-- SELECTOR PLATAFORMA -->
     <div class="platform-tabs">
-        <button class="ptab active" onclick="setPlatform('java', this)">☕ Java Edition</button>
-        <button class="ptab" onclick="setPlatform('bedrock', this)">🪨 Bedrock Edition</button>
-    </div>
-
-    <div class="bedrock-notice" id="bedrock-notice">
-        <span style="font-size:1.4rem;flex-shrink:0;">⚠️</span>
-        <div><strong>Jugadores de Bedrock:</strong> debes agregar un <strong>punto ( . )</strong> al inicio de tu nombre de usuario en todo momento. Si tu nombre es <code style="background:rgba(124,58,237,0.15);padding:2px 7px;border-radius:4px;font-family:monospace;color:#f0abfc;">MiNombre</code>, usa <code style="background:rgba(124,58,237,0.15);padding:2px 7px;border-radius:4px;font-family:monospace;color:#f0abfc;">.MiNombre</code>.</div>
+        <button class="ptab active" onclick="setPlatform('java', this)" aria-pressed="true">☕ Java Edition</button>
+        <button class="ptab" onclick="setPlatform('bedrock', this)" aria-pressed="false">🪨 Bedrock Edition</button>
     </div>
 
     <div class="steps">
@@ -137,10 +134,6 @@
                     <span class="info-label" style="margin-left:12px;">Puerto</span>
                     <span class="code">24598</span>
                 </div>
-                <div id="bedrock-tip" class="warning-box" style="display:none; margin-top:14px;">
-                    <span>🪨</span>
-                    <span><strong style="color:var(--white);">Bedrock:</strong> En la sección de nombre de usuario, recuerda que debes conectarte con el punto al inicio: <code style="background:rgba(124,58,237,0.15);padding:2px 6px;border-radius:4px;font-family:monospace;color:#f0abfc;">.TuNombre</code></span>
-                </div>
             </div>
         </div>
         <div class="step">
@@ -159,10 +152,11 @@
             <div class="step-body">
                 <div class="step-title">¿Tienes problemas para conectarte?</div>
                 <p>Si no puedes conectarte, verifica que tu versión de Minecraft sea compatible (1.8 – 26.1.2) y que el servidor esté en línea. Si el problema persiste, abre un ticket en nuestro Discord.</p>
-                <div class="info-box" style="margin-top:14px;">
-                    <span class="info-label">Soporte</span>
-                    <a href="https://discord.gg/GycJsW5w7H" target="_blank" style="color:var(--purple-light);font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:1px;text-decoration:none;">discord.gg/GycJsW5w7H →</a>
-                </div>
+                <a class="discord-support" href="https://discord.gg/GycJsW5w7H" target="_blank" rel="noopener noreferrer">
+                    <span class="discord-support-icon" aria-hidden="true">💬</span>
+                    <span class="discord-support-copy"><span class="discord-support-label">Soporte de Arcanis</span><strong>Abrir un ticket en Discord</strong><span>Cuéntanos qué ocurre y te ayudamos a conectar.</span></span>
+                    <span class="discord-support-arrow" aria-hidden="true">↗</span>
+                </a>
             </div>
         </div>
     </div>
@@ -192,11 +186,9 @@
 })();
 
 function setPlatform(p, btn) {
-    document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.ptab').forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
     btn.classList.add('active');
-    const isBedrock = p === 'bedrock';
-    document.getElementById('bedrock-notice').style.display = isBedrock ? 'flex' : 'none';
-    document.getElementById('bedrock-tip').style.display = isBedrock ? 'flex' : 'none';
+    btn.setAttribute('aria-pressed', 'true');
 }
 </script>
 </body>

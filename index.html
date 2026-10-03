@@ -432,8 +432,12 @@
             .gallery-item.featured { grid-column: span 2; }
         }
     </style>
+    <link rel="stylesheet" href="guias.css?v=20261002">
+    <link rel="stylesheet" href="inicio.css?v=20261002-hibrido">
 </head>
 <body>
+
+<div class="guide-progress" aria-hidden="true"><span></span></div>
 
 <div id="loader">
     <img src="Logo_ARCANIS-256.png" alt="Arcanis" width="110" height="110" onerror="this.style.display='none'">
@@ -441,8 +445,8 @@
     <div id="loader-text">Invocando magia...</div>
 </div>
 
-<div id="lightbox">
-    <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Galería de Arcanis">
+    <button id="lightbox-close" aria-label="Cerrar imagen" onclick="closeLightbox()">✕</button>
     <img id="lightbox-img" src="" alt="">
 </div>
 
@@ -452,7 +456,7 @@
 <div id="news-banner">
     <span class="banner-badge">🚀 Pronto</span>
     <span>¡Arcanis llega en Diciembre 2026! · Paper 1.8 – 26.1.2</span>
-    <button class="banner-close" onclick="document.getElementById('news-banner').style.display='none'">✕</button>
+    <button class="banner-close" aria-label="Cerrar anuncio" onclick="document.getElementById('news-banner').style.display='none'">✕</button>
 </div>
 
 <!-- HEADER -->
@@ -465,7 +469,7 @@
         </a>
         <a href="#inicio" id="nav-text-fallback" class="nav-logo" style="display:none;">ARCANIS</a>
     </div>
-    <nav id="main-nav">
+    <nav id="main-nav" aria-label="Navegación principal">
         <a href="#inicio">Inicio</a>
         <a href="#mundo">Mundo</a>
         <a href="#historia">Historia</a>
@@ -492,11 +496,15 @@
         <img src="Arcanis-Text.png" alt="Arcanis" class="hero-logo" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='block';">
         <h1 id="hero-fallback" style="display:none; font-family:'Cinzel',serif; font-size:4rem; font-weight:900; letter-spacing:6px; color:#f8f8ff; text-shadow:0 0 50px rgba(217,70,239,0.6); margin-bottom:28px;">ARCANIS</h1>
         <p class="hero-sub">Un servidor Survival de habla hispana donde la aventura, la magia y el destino se entrelazan.<br>Escribe tu propia historia.</p>
+        <div class="hero-actions">
+            <a href="guia-conexion.html" class="btn-primary">Comenzar mi aventura →</a>
+            <a href="#porque" class="btn-secondary">Explorar el servidor ↓</a>
+        </div>
         <div class="hero-info-row">
-            <div class="hero-info-item" onclick="copyIP()">
-                <div class="icon-wrap" id="ip-icon-wrap"><svg viewBox="0 0 24 24"><path id="ip-icon-path" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-                <div><div class="info-label">IP: arcanis.servemc.net</div><div class="info-sub" id="ip-sub">Click para copiar</div></div>
-            </div>
+            <button type="button" class="hero-info-item" onclick="copyIP()" aria-label="Copiar IP del servidor">
+                <span class="icon-wrap" id="ip-icon-wrap"><svg viewBox="0 0 24 24"><path id="ip-icon-path" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+                <span><span class="info-label">IP: arcanis.servemc.net</span><span class="info-sub" id="ip-sub">Click para copiar</span></span>
+            </button>
             <a class="hero-info-item" href="https://discord.gg/GycJsW5w7H" target="_blank">
                 <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.935 19.935 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.138 13.138 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></div>
                 <div><div class="info-label">Únete a nuestro Discord</div><div class="info-sub">Click para unirte</div></div>
@@ -729,41 +737,29 @@
     <div class="block-inner narrow">
         <p class="eyebrow reveal">Normas de convivencia</p>
         <h2 class="block-title reveal">Reglas de Arcanis</h2>
-        <p class="block-sub reveal">Para mantener una comunidad sana, divertida y respetuosa. Al unirte, aceptas estas reglas.</p>
-        <div class="rules-tabs reveal">
-            <button class="tab-btn tab-mc active" onclick="switchTab('mc', event)">⛏ Servidor Minecraft</button>
-            <button class="tab-btn" onclick="switchTab('dc', event)">💬 Discord</button>
+        <p class="block-sub reveal">Un solo reglamento para Minecraft y Discord. Arcanis es una comunidad relajada, con bromas y confianza, pero sin acoso ni faltas de respeto. El contexto, la gravedad y la reincidencia importan. Al formar parte de Arcanis, aceptas estas normas.</p>
+        <div class="rules-list" aria-label="Reglamento global de Arcanis">
+            <div class="rule-item"><div class="rule-num">01</div><div class="rule-body"><div class="rule-title">Respeto entre usuarios</div><div class="rule-desc">Se permiten las bromas consensuadas, la confianza y el lenguaje informal leve cuando las personas involucradas se sienten cómodas. No se permiten insultos agresivos, humillaciones ni ataques personales. Si alguien pide detener una broma, respétalo. Las groserías fuertes y el lenguaje discriminatorio están prohibidos, incluso como broma, y pueden ser censurados por el automod.</div></div></div>
+            <div class="rule-item"><div class="rule-num">02</div><div class="rule-body"><div class="rule-title">Provocaciones y conflictos</div><div class="rule-desc">Si una conversación comienza a convertirse en pelea, el staff intentará detenerla con una indicación verbal. Continuar provocando o discutiendo después del aviso puede resultar en una advertencia o sanción. No es necesario que existan insultos graves para intervenir cuando la convivencia ya está siendo afectada.</div></div></div>
+            <div class="rule-item"><div class="rule-num">03</div><div class="rule-body"><div class="rule-title">Cero discriminación</div><div class="rule-desc">No se permite racismo, homofobia, transfobia, xenofobia, sexismo ni ataques a personas o grupos por sus características personales. Presentar ese contenido como una broma, usar indirectas o intentar evadir el filtro no lo convierte en aceptable.</div></div></div>
+            <div class="rule-item"><div class="rule-num">04</div><div class="rule-body"><div class="rule-title">Spam y uso del chat</div><div class="rule-desc">Evita el flood, las cadenas, los mensajes vacíos o repetidos y las menciones innecesarias. No inundes el chat con caracteres separados ni repeticiones excesivas; como referencia, se toleran aproximadamente ocho repeticiones consecutivas. El abuso de MAYÚSCULAS puede moderarse si resulta molesto y normalmente se considera una falta leve.</div></div></div>
+            <div class="rule-item"><div class="rule-num">05</div><div class="rule-body"><div class="rule-title">Contenido sexual o explícito</div><div class="rule-desc">Está prohibido compartir imágenes, videos, enlaces o cualquier material sexual explícito o +18. Las bromas sobre estos temas pueden tolerarse según el contexto, pero no son recomendables y deben detenerse si incomodan a otros usuarios o si el staff lo solicita.</div></div></div>
+            <div class="rule-item"><div class="rule-num">06</div><div class="rule-body"><div class="rule-title">Temas sensibles con respeto</div><div class="rule-desc">Se puede hablar de violencia, tragedias, salud mental, política, religión y otros temas delicados de forma respetuosa. No los utilices para burlarte de otras personas, provocar conflictos, humillar o generar polémica intencionalmente. El staff puede detener una conversación que esté afectando a la comunidad.</div></div></div>
+            <div class="rule-item"><div class="rule-num">07</div><div class="rule-body"><div class="rule-title">Publicidad y otras comunidades</div><div class="rule-desc">Está prohibido promocionar otros servidores o comunidades mediante invitaciones, enlaces o mensajes destinados a captar usuarios. También cuenta utilizar nombres de otras comunidades con intención publicitaria. Una mención casual dentro de una conversación, sin invitación ni promoción, sí está permitida.</div></div></div>
+            <div class="rule-item"><div class="rule-num">08</div><div class="rule-body"><div class="rule-title">Problemas por mensajes privados</div><div class="rule-desc">El staff normalmente no interviene en discusiones privadas externas al servidor. Puede aconsejarte bloquear a la persona si el conflicto comenzó en Arcanis. Cuando exista acoso persistente, amenazas o persecución directamente relacionada con la comunidad, podrá investigar y tomar medidas contra el responsable.</div></div></div>
+            <div class="rule-item"><div class="rule-num">09</div><div class="rule-body"><div class="rule-title">Tickets y contacto con el staff</div><div class="rule-desc">Las dudas sencillas pueden preguntarse en los canales correspondientes. Reportes, apelaciones, conflictos, problemas personales y asuntos administrativos deben tratarse por ticket o en un espacio privado habilitado por la administración. Explica lo ocurrido con claridad y aporta pruebas cuando sea posible; no conviertas el caso en una discusión pública.</div></div></div>
+            <div class="rule-item"><div class="rule-num">10</div><div class="rule-body"><div class="rule-title">Conducta del staff</div><div class="rule-desc">El staff debe mantener el mismo respeto que se exige a los jugadores. No puede usar su rango para intimidar, provocar o amenazar con sanciones como un ataque personal. Si una conducta merece una sanción, debe actuar conforme al reglamento y explicar el motivo de forma justificada.</div></div></div>
+            <div class="rule-item"><div class="rule-num">11</div><div class="rule-body"><div class="rule-title">Hacks y ventajas injustas</div><div class="rule-desc">No se permiten hacks, cheats, clientes, mods ni herramientas que otorguen una ventaja injusta sobre otros jugadores. Esto incluye x-ray, kill aura, aimbot, fly hacks, autoclickers, macros abusivas y sistemas diseñados para automatizar acciones de manera desleal. Que una herramienta no figure en esta lista no significa que esté autorizada.</div></div></div>
+            <div class="rule-item"><div class="rule-num">12</div><div class="rule-body"><div class="rule-title">Bugs, exploits y duplicaciones</div><div class="rule-desc">Está prohibido aprovechar intencionalmente errores, duplicaciones, exploits o fallos del servidor para obtener ventajas. Reporta los problemas al staff en cuanto los detectes. Ocultar un bug para explotarlo, compartirlo con esa intención o seguir usándolo después de descubrirlo puede considerarse una infracción grave.</div></div></div>
+            <div class="rule-item"><div class="rule-num">13</div><div class="rule-body"><div class="rule-title">Lag intencional</div><div class="rule-desc">No construyas mecanismos ni utilices comandos, exploits o sistemas con el propósito de provocar lag, degradar el rendimiento o interrumpir el funcionamiento del servidor. Las acciones diseñadas para perjudicar la experiencia de otros jugadores están prohibidas.</div></div></div>
+            <div class="rule-item"><div class="rule-num">14</div><div class="rule-body"><div class="rule-title">Robos, griefing y estafas</div><div class="rule-desc">No se permite robar, destruir construcciones ajenas, realizar griefing ni engañar intencionalmente durante intercambios. Para investigar o compensar un robo o estafa, el staff necesita evidencia suficiente y verificable. Guarda capturas o registros del trato: sin pruebas no se garantiza la devolución de objetos, dinero o recursos.</div></div></div>
+            <div class="rule-item"><div class="rule-num">15</div><div class="rule-body"><div class="rule-title">Skins, nombres y perfiles</div><div class="rule-desc">No se permiten nombres, skins ni perfiles con contenido sexual explícito, referencias extremadamente ofensivas o material inapropiado. Dependiendo de la gravedad, el staff podrá solicitar un cambio antes de aplicar una sanción. Utiliza una identidad que permita una convivencia respetuosa.</div></div></div>
+            <div class="rule-item"><div class="rule-num">16</div><div class="rule-body"><div class="rule-title">Conflictos externos</div><div class="rule-desc">Los problemas de otros servidores, comunidades o grupos no se trasladan automáticamente a Arcanis. Aquí se te juzga por tu conducta dentro de la comunidad. Solo se tendrá en cuenta información externa cuando afecte directamente la seguridad, integridad o funcionamiento del proyecto.</div></div></div>
+            <div class="rule-item"><div class="rule-num">17</div><div class="rule-body"><div class="rule-title">Apelaciones y revisión de sanciones</div><div class="rule-desc">Las apelaciones se realizan exclusivamente por ticket o por los canales privados destinados para ello. Expón tu versión y las pruebas con respeto. Reclamar insistentemente, discutir el caso o intentar desacreditar una sanción en canales públicos puede agravarla o provocar medidas adicionales.</div></div></div>
+            <div class="rule-item"><div class="rule-num">18</div><div class="rule-body"><div class="rule-title">Sanciones progresivas</div><div class="rule-desc">El staff considera la gravedad, el contexto y la reincidencia: una primera falta leve suele recibir aviso verbal; una segunda puede resultar en mute temporal o kick, y una tercera en ban temporal. Faltas graves como hacks, griefing masivo, acoso grave, contenido NSFW o evasión de ban pueden recibir ban permanente sin avisos previos. El automod de Discord aplica aviso, mute de una hora y ban temporal de un día; los bans permanentes por faltas graves requieren revisión del staff.</div></div></div>
+            <div class="rule-item"><div class="rule-num">19</div><div class="rule-body"><div class="rule-title">Los vacíos no autorizan conductas maliciosas</div><div class="rule-desc">No es posible describir todas las situaciones. El staff podrá intervenir ante una conducta claramente maliciosa, perjudicial o diseñada para aprovechar un vacío en las normas, aunque no esté escrita literalmente. Toda intervención debe justificarse por la convivencia y la seguridad de la comunidad, no por criterios personales arbitrarios.</div></div></div>
         </div>
-        <div class="tab-content active" id="tab-mc">
-            <div class="rules-list">
-                <div class="rule-item"><div class="rule-num">01</div><div class="rule-body"><div class="rule-title">Respeto ante todo</div><div class="rule-desc">Trata a todos con respeto. No se toleran insultos, discriminación, burlas ni actitudes tóxicas.</div></div></div>
-                <div class="rule-item"><div class="rule-num">02</div><div class="rule-body"><div class="rule-title">Prohibido hacks o mods con ventaja</div><div class="rule-desc">Kill aura, speed hacks, x-ray, aimbot, fly hacks, auto-clicker y similares están prohibidos.</div></div></div>
-                <div class="rule-item"><div class="rule-num">03</div><div class="rule-body"><div class="rule-title">Nada de spam</div><div class="rule-desc">No envíes mensajes repetidos ni inundes el chat.</div></div></div>
-                <div class="rule-item"><div class="rule-num">04</div><div class="rule-body"><div class="rule-title">Sin publicidad no autorizada</div><div class="rule-desc">No publicites otros servidores o comunidades sin autorización del staff.</div></div></div>
-                <div class="rule-item"><div class="rule-num">05</div><div class="rule-body"><div class="rule-title">Lenguaje moderado</div><div class="rule-desc">Evita groserías excesivas o lenguaje ofensivo hacia otros jugadores.</div></div></div>
-                <div class="rule-item"><div class="rule-num">06</div><div class="rule-body"><div class="rule-title">Prohibidas trampas y abuso de bugs</div><div class="rule-desc">No engañes en tratos ni explotes bugs. Repórtalos al staff.</div></div></div>
-                <div class="rule-item"><div class="rule-num">07</div><div class="rule-body"><div class="rule-title">No al griefing ni al robo</div><div class="rule-desc">Destruir construcciones o robar ítems está terminantemente prohibido.</div></div></div>
-                <div class="rule-item"><div class="rule-num">08</div><div class="rule-body"><div class="rule-title">Respeta las zonas protegidas</div><div class="rule-desc">No modifiques áreas protegidas o el spawn sin permiso del staff.</div></div></div>
-                <div class="rule-item"><div class="rule-num">09</div><div class="rule-body"><div class="rule-title">Obedece al staff</div><div class="rule-desc">Las decisiones del staff son definitivas. Apela por los canales correctos.</div></div></div>
-                <div class="rule-item"><div class="rule-num">10</div><div class="rule-body"><div class="rule-title">Nombre de usuario apropiado</div><div class="rule-desc">Sin insultos ni contenido inapropiado en tu nombre de usuario.</div></div></div>
-            </div>
-            <div class="sanctions-box"><div class="sanctions-title">⚠ Sistema de Sanciones</div><div class="sanctions-grid"><div class="sanction-item"><div class="sanction-label">1ª infracción leve</div><div class="sanction-desc">Advertencia verbal por chat o Discord.</div></div><div class="sanction-item"><div class="sanction-label">2ª infracción</div><div class="sanction-desc">Mute temporal o kick del servidor.</div></div><div class="sanction-item"><div class="sanction-label">3ª infracción</div><div class="sanction-desc">Ban temporal a criterio del staff.</div></div><div class="sanction-item" style="border-color:rgba(239,68,68,0.3);"><div class="sanction-label" style="color:#ef4444;">Infracción grave</div><div class="sanction-desc">Ban permanente. Incluye hacks, griefing, NSFW, evasión de ban.</div></div></div></div>
-        </div>
-        <div class="tab-content" id="tab-dc">
-            <div class="rules-list">
-                <div class="rule-item"><div class="rule-num">01</div><div class="rule-body"><div class="rule-title">Respeto mutuo</div><div class="rule-desc">No se tolera acoso, bullying, discriminación, racismo ni homofobia en ningún canal.</div></div></div>
-                <div class="rule-item"><div class="rule-num">02</div><div class="rule-body"><div class="rule-title">Usa los canales correctos</div><div class="rule-desc">Cada canal tiene un propósito específico, respétalo.</div></div></div>
-                <div class="rule-item"><div class="rule-num">03</div><div class="rule-body"><div class="rule-title">Sin spam ni flood</div><div class="rule-desc">No envíes mensajes repetidos ni abuses de los emojis.</div></div></div>
-                <div class="rule-item"><div class="rule-num">04</div><div class="rule-body"><div class="rule-title">No menciones al staff innecesariamente</div><div class="rule-desc">Usa los canales de soporte y espera con paciencia.</div></div></div>
-                <div class="rule-item"><div class="rule-num">05</div><div class="rule-body"><div class="rule-title">Lenguaje apropiado</div><div class="rule-desc">Groserías moderadas toleradas, insultos directos no.</div></div></div>
-                <div class="rule-item"><div class="rule-num">06</div><div class="rule-body"><div class="rule-title">Sin contenido NSFW</div><div class="rule-desc">Prohibido contenido sexual o violento. Ban inmediato sin advertencia.</div></div></div>
-                <div class="rule-item"><div class="rule-num">07</div><div class="rule-body"><div class="rule-title">Prohibida la publicidad no autorizada</div><div class="rule-desc">Sin publicitar otros servidores, canales o proyectos sin permiso.</div></div></div>
-                <div class="rule-item"><div class="rule-num">08</div><div class="rule-body"><div class="rule-title">No compartas información personal ajena</div><div class="rule-desc">Prohibido compartir fotos, nombres reales o ubicaciones sin consentimiento.</div></div></div>
-                <div class="rule-item"><div class="rule-num">09</div><div class="rule-body"><div class="rule-title">Sin cuentas alternativas</div><div class="rule-desc">Regresar con otra cuenta tras un ban resultará en ban permanente.</div></div></div>
-                <div class="rule-item"><div class="rule-num">10</div><div class="rule-body"><div class="rule-title">Sigue las normas de Discord</div><div class="rule-desc">Todos deben cumplir los Términos de Servicio oficiales de Discord.</div></div></div>
-            </div>
-            <div class="sanctions-box"><div class="sanctions-title">⚠ Sistema de Sanciones</div><div class="sanctions-grid"><div class="sanction-item"><div class="sanction-label">1ª infracción leve</div><div class="sanction-desc">Advertencia verbal por chat o Discord.</div></div><div class="sanction-item"><div class="sanction-label">2ª infracción</div><div class="sanction-desc">Mute temporal o kick del servidor.</div></div><div class="sanction-item"><div class="sanction-label">3ª infracción</div><div class="sanction-desc">Ban temporal a criterio del staff.</div></div><div class="sanction-item" style="border-color:rgba(239,68,68,0.3);"><div class="sanction-label" style="color:#ef4444;">Infracción grave</div><div class="sanction-desc">Ban permanente. Incluye acoso, NSFW, evasión de ban.</div></div></div></div>
-        </div>
+        <div class="sanctions-box"><div class="sanctions-title">⚠ Sistema de Sanciones</div><div class="sanctions-grid"><div class="sanction-item"><div class="sanction-label">1ª infracción leve</div><div class="sanction-desc">Advertencia verbal y oportunidad de corregir la conducta.</div></div><div class="sanction-item"><div class="sanction-label">2ª infracción</div><div class="sanction-desc">Mute temporal o kick, según contexto y reincidencia.</div></div><div class="sanction-item"><div class="sanction-label">3ª infracción</div><div class="sanction-desc">Ban temporal, con duración a criterio del staff.</div></div><div class="sanction-item" style="border-color:rgba(239,68,68,0.3);"><div class="sanction-label" style="color:#ef4444;">Infracción grave</div><div class="sanction-desc">Puede implicar ban permanente sin advertencias previas.</div></div></div></div>
     </div>
 </section>
 
@@ -783,10 +779,6 @@
                 <div class="staff-founder-badge">👑</div>
                 <div class="skin-wrap"><img src="https://mc-heads.net/body/Jorge_9" alt="Jorge_9" width="180" height="432" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>W</div>'"></div>
                 <div class="staff-info"><div class="staff-name">Jorge_9</div><div class="staff-role role-coowner">Owner / Admin</div><p class="staff-desc">Co-fundador y desarrollador principal. Encargado de la infraestructura, el bot y la experiencia del servidor.</p></div>
-            </div>
-            <div class="staff-card staff-rank staff-mod reveal reveal-delay-4">
-                <div class="skin-wrap"><img src="https://mc-heads.net/body/SoullyLink" alt="SoullyLink" width="180" height="432" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>S</div>'"></div>
-                <div class="staff-info"><div class="staff-name">SoullyLink</div><div class="staff-role role-mod">Moderadora</div><p class="staff-desc">Ojo atento y mano firme. Vela por que Arcanis sea un lugar justo y agradable para toda la comunidad.</p></div>
             </div>
             <div class="staff-card staff-rank staff-helperplus reveal reveal-delay-5">
                 <div class="skin-wrap"><img src="https://mc-heads.net/body/imredx3" alt="imredx3" width="180" height="432" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'skin-fallback\'>k</div>'"></div>
@@ -813,8 +805,6 @@
         <div class="store-hero reveal">
             <div class="store-categories">
                 <div class="store-cat"><div class="store-cat-icon">👑</div><div class="store-cat-name">Rangos Permanentes</div></div>
-                <div class="store-cat"><div class="store-cat-icon">🪙</div><div class="store-cat-name">ArCoins</div></div>
-                <div class="store-cat"><div class="store-cat-icon">💎</div><div class="store-cat-name">Items OP</div></div>
                 <div class="store-cat"><div class="store-cat-icon">🗝️</div><div class="store-cat-name">Llaves</div></div>
                 <div class="store-cat"><div class="store-cat-icon">🎨</div><div class="store-cat-name">Cosméticos</div></div>
             </div>
@@ -897,7 +887,7 @@
     </div>
 </footer>
 
-<div id="toast">¡IP Copiada! 🎉</div>
+<div id="toast" role="status" aria-live="polite">¡IP Copiada! 🎉</div>
 
 <script>
 /* LOADER */
@@ -918,6 +908,7 @@
 
 /* PARTÍCULAS */
 (function(){
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -943,7 +934,7 @@
 
 /* SCROLL REVEAL */
 const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
@@ -965,33 +956,73 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 })();
 
 /* LIGHTBOX */
-function openLightbox(src){ document.getElementById('lightbox-img').src=src; document.getElementById('lightbox').classList.add('open'); }
-function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+let ultimoFocoGaleria;
+function openLightbox(src){
+    ultimoFocoGaleria = document.activeElement;
+    const imagen = document.getElementById('lightbox-img');
+    imagen.src = src;
+    imagen.alt = [...document.querySelectorAll('.gallery-item img')].find(img => img.getAttribute('src') === src)?.alt || 'Paisaje de Arcanis';
+    document.getElementById('lightbox').classList.add('open');
+    document.body.classList.add('gallery-open');
+    document.getElementById('lightbox-close').focus();
+}
+function closeLightbox(){
+    if(!document.getElementById('lightbox').classList.contains('open')) return;
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.classList.remove('gallery-open');
+    ultimoFocoGaleria?.focus();
+}
 document.getElementById('lightbox').addEventListener('click', function(e){ if(e.target===this) closeLightbox(); });
+document.querySelectorAll('.gallery-item').forEach(item => {
+    item.tabIndex = 0;
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', 'Ampliar: ' + item.querySelector('img').alt);
+    item.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); } });
+});
+document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') { closeLightbox(); cerrarMenu(); }
+    if(e.key === 'Tab' && document.getElementById('lightbox').classList.contains('open')) { e.preventDefault(); document.getElementById('lightbox-close').focus(); }
+});
 
 /* NAV MÓVIL */
 function toggleMobileNav(){
-    document.getElementById('main-nav').classList.toggle('open');
-    document.getElementById('nav-toggle').classList.toggle('open');
+    const abierto = document.getElementById('main-nav').classList.toggle('open');
+    const boton = document.getElementById('nav-toggle');
+    boton.classList.toggle('open', abierto);
+    boton.setAttribute('aria-expanded', String(abierto));
+    boton.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
 }
-document.querySelectorAll('#main-nav a').forEach(a => a.addEventListener('click', () => {
+function cerrarMenu(){
     document.getElementById('main-nav').classList.remove('open');
     document.getElementById('nav-toggle').classList.remove('open');
-}));
-
-/* TABS */
-function switchTab(tab, e){
-    document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
-    document.getElementById('tab-'+tab).classList.add('active');
-    e.currentTarget.classList.add('active');
+    document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+    document.getElementById('nav-toggle').setAttribute('aria-label', 'Abrir menú');
 }
+document.querySelectorAll('#main-nav a').forEach(a => a.addEventListener('click', cerrarMenu));
+document.addEventListener('click', e => { if(!e.target.closest('header')) cerrarMenu(); });
+window.matchMedia('(min-width: 1161px)').addEventListener('change', e => { if(e.matches) cerrarMenu(); });
+
+/* PROGRESO DE LECTURA — mismo detalle visual de las guías */
+(function(){
+    const progreso = document.querySelector('.guide-progress');
+    let pendiente = false;
+    function actualizar(){
+        const altura = document.documentElement.scrollHeight - innerHeight;
+        progreso.style.setProperty('--reading-progress', String(altura > 0 ? Math.min(1, Math.max(0, scrollY / altura)) : 1));
+        pendiente = false;
+    }
+    window.addEventListener('scroll', () => { if(!pendiente) { pendiente = true; requestAnimationFrame(actualizar); } }, {passive:true});
+    window.addEventListener('resize', actualizar, {passive:true});
+    window.addEventListener('load', actualizar, {once:true});
+    actualizar();
+})();
 
 /* COPIAR IP */
 const IP_ICON_PIN = 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z';
 const IP_ICON_CHECK = 'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z';
 function copyIP(){
-    navigator.clipboard.writeText('arcanis.servemc.net').then(()=>{
+    const copia = navigator.clipboard?.writeText ? navigator.clipboard.writeText('arcanis.servemc.net') : Promise.reject(new Error('Copia no disponible'));
+    copia.then(()=>{
         document.getElementById('ip-sub').textContent='¡Copiada!';
         document.getElementById('ip-icon-wrap').classList.add('copied');
         document.getElementById('ip-icon-path').setAttribute('d', IP_ICON_CHECK);

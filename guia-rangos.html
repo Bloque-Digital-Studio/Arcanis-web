@@ -69,6 +69,8 @@
 
         @media(max-width:680px){ header{padding:0 18px;} .guide-body{padding:40px 18px 80px;} .rank-section-header{padding:20px;} .rank-section-body{padding:20px;} }
     </style>
+    <link rel="stylesheet" href="guias.css?v=20261002">
+    <script src="guias.js?v=20261002" defer></script>
 </head>
 <body>
 <canvas id="particles-canvas"></canvas>
@@ -92,11 +94,11 @@
     <a href="index.html#guias" class="back-btn">← Volver a Guías</a>
 
     <div class="rank-nav">
-        <a href="#Mago" class="rank-nav-btn" style="color:#009c7f;border-color:rgba(6,182,212,0.3);">🌱 Mago</a>
-        <a href="#Brujo" class="rank-nav-btn" style="color:#8cff00;border-color:rgba(34,197,94,0.3);">⭐ Brujo</a>
-        <a href="#Hechicero" class="rank-nav-btn" style="color:#00c3ff;border-color:rgba(147,197,253,0.3);">🔮 Hechicero</a>
-        <a href="#Arcano" class="rank-nav-btn" style="color:#c026d3;border-color:rgba(192,38,211,0.3);">🌀 Arcano</a>
-        <a href="#Ecliptus" class="rank-nav-btn" style="color:#ef4444;border-color:rgba(239,68,68,0.3);">🌑 Ecliptus</a>
+        <a href="#mago" class="rank-nav-btn" style="color:#2dd4bf;border-color:rgba(6,182,212,0.3);">🌱 Mago</a>
+        <a href="#brujo" class="rank-nav-btn" style="color:#8cff00;border-color:rgba(34,197,94,0.3);">⭐ Brujo</a>
+        <a href="#hechicero" class="rank-nav-btn" style="color:#00c3ff;border-color:rgba(147,197,253,0.3);">🔮 Hechicero</a>
+        <a href="#arcano" class="rank-nav-btn" style="color:#d946ef;border-color:rgba(192,38,211,0.3);">🌀 Arcano</a>
+        <a href="#ecliptus" class="rank-nav-btn" style="color:#ff8585;border-color:rgba(239,68,68,0.3);">🌑 Ecliptus</a>
     </div>
 
     <!-- APRENIZ -->
@@ -219,7 +221,6 @@
                 <div class="perk-item"><span class="perk-emoji">🎒</span><div class="perk-text"><div class="perk-title">Mochilas / PVs</div><div class="perk-desc"><span class="perk-highlight">12 mochilas</span> de almacenamiento personal.</div></div></div>
                 <div class="perk-item"><span class="perk-emoji">🎁</span><div class="perk-text"><div class="perk-title">Kits</div><div class="perk-desc">Kits <span class="perk-highlight">Arcano, Hechicero, Brujo y Mago</span> disponibles cada 24 horas.</div></div></div>
                 <div class="perk-item"><span class="perk-emoji">🍖</span><div class="perk-text"><div class="perk-title">/feed — Alimentarse</div><div class="perk-desc">Rellena tu barra de hambre al instante sin necesidad de alimento.</div></div></div>
-                <div class="perk-item"><span class="perk-emoji">💀</span><div class="perk-text"><div class="perk-title">Keep Inventory</div><div class="perk-desc">Al morir, <span class="perk-highlight">conservas todos tus ítems</span>. ¡Nunca más pierdas tu equipo!</div></div></div>
                 <div class="perk-item"><span class="perk-emoji">🎨</span><div class="perk-text"><div class="perk-title">Chat Premium</div><div class="perk-desc">Color, subrayado, tachado, cursiva, <span class="perk-highlight">negritas y colores Hex</span> en el chat.</div></div></div>
             </div>
             <div class="coins-box">
@@ -251,7 +252,9 @@
                 <div class="perk-item"><span class="perk-emoji">🛡️</span><div class="perk-text"><div class="perk-title">Protecciones</div><div class="perk-desc"><span class="perk-highlight">15 protecciones</span> máximas de terreno (mejorable con nivel de horas).</div></div></div>
                 <div class="perk-item"><span class="perk-emoji">🎒</span><div class="perk-text"><div class="perk-title">Mochilas / PVs</div><div class="perk-desc"><span class="perk-highlight">15 mochilas</span> de almacenamiento personal.</div></div></div>
                 <div class="perk-item"><span class="perk-emoji">🎁</span><div class="perk-text"><div class="perk-title">Kits</div><div class="perk-desc">Kits <span class="perk-highlight">Ecliptus y todos los anteriores</span> disponibles cada 24 horas.</div></div></div>
-                <div class="perk-item"><span class="perk-emoji">🗳️</span><div class="perk-text"><div class="perk-title">Voto Doble</div><div class="perk-desc">Al votar por el servidor obtienes el <span class="perk-highlight">doble de ítems</span> de voto que los demás rangos.</div></div></div>
+                <div class="perk-item"><span class="perk-emoji">💀</span><div class="perk-text"><div class="perk-title">Keep Inventory</div><div class="perk-desc">Al morir, <span class="perk-highlight">conservas todos tus ítems</span>. Beneficio exclusivo de Ecliptus.</div></div></div>
+                <div class="perk-item"><span class="perk-emoji">✨</span><div class="perk-text"><div class="perk-title">Brillo Permanente</div><div class="perk-desc">Acceso permanente al <span class="perk-highlight">brillo</span> para personalizar tu apariencia.</div></div></div>
+                <div class="perk-item"><span class="perk-emoji">🏷️</span><div class="perk-text"><div class="perk-title">Nick Permanente</div><div class="perk-desc">Acceso permanente a la <span class="perk-highlight">personalización de tu nick</span>.</div></div></div>
                 <div class="perk-item"><span class="perk-emoji">🌈</span><div class="perk-text"><div class="perk-title">Chat Supremo</div><div class="perk-desc">Todos los estilos anteriores más <span class="perk-highlight">colores con degradado</span> (gradientes) en el chat.</div></div></div>
             </div>
             <div class="coins-box">

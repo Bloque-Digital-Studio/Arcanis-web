@@ -68,6 +68,8 @@
 
         @media(max-width:680px){ header{padding:0 18px;} .guide-body{padding:40px 18px 80px;} .cmd-item{grid-template-columns:1fr;gap:8px;} .cmd-code{white-space:normal;word-break:break-word;} .step-num{width:46px;height:46px;} }
     </style>
+    <link rel="stylesheet" href="guias.css?v=20261002">
+    <script src="guias.js?v=20261002" defer></script>
 </head>
 <body>
 <canvas id="particles-canvas"></canvas>
@@ -103,19 +105,41 @@
         <div class="reward-grid">
             <div class="reward-card">
                 <div class="reward-icon">💰</div>
-                <div class="reward-name">ArCoins</div>
-                <div class="reward-desc">Recibe ArCoins directamente en tu cuenta por cada voto emitido.</div>
+                <div class="reward-name">500 ArCoins</div>
+                <div class="reward-desc">Recibe 500 ArCoins por cada voto para usar en la economía del servidor.</div>
             </div>
             <div class="reward-card">
                 <div class="reward-icon">🗝️</div>
-                <div class="reward-name">Ítems de Voto</div>
-                <div class="reward-desc">Objetos especiales que solo se consiguen votando, imposibles de obtener de otra forma.</div>
+                <div class="reward-name">1 Llave Común</div>
+                <div class="reward-desc">Una llave común por cada voto para abrir su crate y descubrir tu premio.</div>
             </div>
-            <div class="reward-card" style="border-color:rgba(239,68,68,0.25);">
-                <div class="reward-icon">🌑</div>
-                <div class="reward-name" style="color:#ef4444;">Doble Recompensa</div>
-                <div class="reward-desc">Los jugadores con rango <strong>Ecliptus</strong> reciben el doble de ítems por cada voto.</div>
+            <div class="reward-card">
+                <div class="reward-icon">🔮</div>
+                <div class="reward-name">2 Elementos</div>
+                <div class="reward-desc">Dos elementos totalmente aleatorios: agua, fuego, aire o tierra. Pueden repetirse.</div>
             </div>
+        </div>
+    </div>
+
+    <!-- SITIOS DE VOTACIÓN: mismos enlaces y cards del index -->
+    <div class="vote-section" id="sitios-votacion">
+        <div class="section-header">
+            <span class="section-icon">🌐</span>
+            <div><div class="section-title">Elige Dónde Votar</div><div class="section-desc">Los cuatro sitios oficiales de votación de Arcanis.</div></div>
+        </div>
+        <div class="vote-sites">
+            <a href="https://minecraft-mp.com/server/360886/vote/" target="_blank" rel="noopener noreferrer" class="guide-card">
+                <div class="guide-card-icon">🗳️</div><div class="guide-card-body"><h3>Minecraft-MP</h3><p>Vota por Arcanis en Minecraft-MP y reclama tu recompensa al instante.</p><span class="guide-card-link">Votar ahora →</span></div>
+            </a>
+            <a href="https://minecraftservers.org/vote/693083" target="_blank" rel="noopener noreferrer" class="guide-card">
+                <div class="guide-card-icon">🗳️</div><div class="guide-card-body"><h3>MinecraftServers.org</h3><p>Vota por Arcanis en MinecraftServers.org y reclama tu recompensa al instante.</p><span class="guide-card-link">Votar ahora →</span></div>
+            </a>
+            <a href="https://topg.org/minecraft-servers/server-686153" target="_blank" rel="noopener noreferrer" class="guide-card">
+                <div class="guide-card-icon">🗳️</div><div class="guide-card-body"><h3>TopG</h3><p>Vota por Arcanis en TopG y reclama tu recompensa al instante.</p><span class="guide-card-link">Votar ahora →</span></div>
+            </a>
+            <a href="https://www.40servidoresmc.es/arcanis/votar" target="_blank" rel="noopener noreferrer" class="guide-card">
+                <div class="guide-card-icon">🗳️</div><div class="guide-card-body"><h3>40ServidoresMC</h3><p>Vota por Arcanis en 40ServidoresMC y reclama tu recompensa al instante.</p><span class="guide-card-link">Votar ahora →</span></div>
+            </a>
         </div>
     </div>
 
@@ -154,10 +178,6 @@
         <div class="tip-box" style="margin-top:20px;">
             <span style="font-size:1.4rem;flex-shrink:0;">⏰</span>
             <p>Cada sitio de votación permite votar <strong>una vez cada 24 horas</strong>. ¡Hazlo diario para maximizar tus recompensas!</p>
-        </div>
-        <div class="ecliptus-box">
-            <span style="font-size:1.4rem;flex-shrink:0;">🌑</span>
-            <p>Si tienes el rango <strong style="color:#ef4444;">Ecliptus</strong>, recibirás automáticamente el <strong style="color:var(--white);">doble de ítems de voto</strong> por cada voto emitido — sin hacer nada especial.</p>
         </div>
     </div>
 
