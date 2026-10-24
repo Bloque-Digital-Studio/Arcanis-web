@@ -1,0 +1,62 @@
+/* Paleta compartida de rangos. Mantener este archivo despues de los estilos de cada pagina. */
+.rank-gradient[data-rank="mago"] { --rank-start: #00815e; --rank-end: #9ff1ff; }
+.rank-gradient[data-rank="brujo"] { --rank-start: #00a624; --rank-end: #5dff75; }
+.rank-gradient[data-rank="hechicero"] { --rank-start: #0084cc; --rank-end: #80adff; }
+.rank-gradient[data-rank="arcano"] { --rank-start: #a600ff; --rank-end: #7a00ff; }
+.rank-gradient[data-rank="ecliptus"] { --rank-start: #ad0003; --rank-end: #ff0004; }
+.rank-gradient[data-rank="helper"] { --rank-start: #a8ff00; --rank-end: #fcff30; }
+.rank-gradient[data-rank="helperplus"] { --rank-start: #8a13ff; --rank-end: #d86eff; }
+.rank-gradient[data-rank="moder"] { --rank-start: #00c59a; --rank-end: #9cebff; }
+.rank-gradient[data-rank="admin"] { --rank-start: #ff004b; --rank-end: #9d00ff; }
+.rank-gradient[data-rank="owner"] { --rank-start: #ffaf00; --rank-end: #fff3c6; }
+
+/* Color legible de respaldo si el navegador no admite texto con fondo recortado. */
+.rank-gradient[data-rank] {
+    display: inline-block;
+    color: var(--rank-end);
+    -webkit-text-fill-color: currentColor;
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .rank-gradient[data-rank] {
+        /* La primera mitad muestra los dos colores en reposo; el retorno hace el bucle suave. */
+        background-image: linear-gradient(90deg, var(--rank-start) 0%, var(--rank-end) 50%, var(--rank-start) 100%);
+        background-size: 200% 100%;
+        background-position: 0% 50%;
+        background-repeat: no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Un solo efecto CSS: sin scripts, intervalos ni cambios de tamano. */
+    @media (prefers-reduced-motion: no-preference) {
+        .rank-gradient[data-rank] {
+            animation: arcanis-rank-slide 3s ease-in-out infinite alternate;
+            animation-play-state: paused;
+        }
+        .rank-gradient[data-rank]:hover,
+        .rank-card:hover .rank-gradient[data-rank],
+        .staff-card:hover .rank-gradient[data-rank],
+        .rank-nav-btn:hover .rank-gradient[data-rank],
+        .rank-nav-btn:focus-visible .rank-gradient[data-rank] {
+            animation-play-state: running;
+        }
+    }
+}
+
+@keyframes arcanis-rank-slide {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
+}
+
+/* Respeta el modo de alto contraste: nunca deja las etiquetas transparentes. */
+@media (forced-colors: active) {
+    .rank-gradient[data-rank] {
+        background: none;
+        color: CanvasText;
+        -webkit-text-fill-color: currentColor;
+        animation: none;
+    }
+}
